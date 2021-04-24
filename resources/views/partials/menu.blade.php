@@ -68,7 +68,52 @@
             </li>
         @endcan
 
-        @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
+        @can('faculty_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.faculties.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/faculties") || request()->is("admin/faculties/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.faculty.title') }}
+                </a>
+            </li>
+        @endcan
+        @can('department_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.departments.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/departments") || request()->is("admin/departments/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.department.title') }}
+                </a>
+            </li>
+        @endcan
+        @if(Gate::check('setting_access'))
+            <li class="c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.setting.title') }}
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    @can('setting_access')
+                        <li class="c-sidebar-nav-item">
+                            <a href="{{ route("admin.settings.edit") }}" class="c-sidebar-nav-link {{ request()->is("admin/settings") || request()->is("admin/settings/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-wrench c-sidebar-nav-icon">
+
+                                </i>
+                                {{ trans('cruds.setting.title') }}
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endif
+
+
+
+    @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
             @can('profile_password_edit')
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'active' : '' }}" href="{{ route('profile.password.edit') }}">

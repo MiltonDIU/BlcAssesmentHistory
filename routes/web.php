@@ -8,7 +8,9 @@ use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Admin\AuditLogsController;
 use App\Http\Controllers\UserVerificationController;
-
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\FacultyController;
+use App\Http\Controllers\Admin\DepartmentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,7 +52,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'roles' => RolesController::class,
         'users' => UsersController::class,
         'audit-logs' => AuditLogsController::class,
+        'faculties' => FacultyController::class,
+        'departments' => DepartmentController::class,
     ]);
+    // Department
+    Route::delete('departments/destroy', [DepartmentController::class,'massDestroy'])->name('departments.massDestroy');
+    Route::post('departments/media', [DepartmentController::class,'storeMedia'])->name('departments.storeMedia');
+    Route::post('departments/ckmedia', [DepartmentController::class,'storeCKEditorImages'])->name('departments.storeCKEditorImages');
+
     Route::get('/', [HomeController::class, 'index']);
     Route::delete('permissions/destroy', [PermissionsController::class, 'massDestroy'])->name('permissions.massDestroy');
     Route::delete('roles/destroy', [RolesController::class, 'massDestroy'])->name('roles.massDestroy');
@@ -58,6 +67,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     // Audit Logs
     //Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
+
+    // Settings
+//    Route::resources(['permissions' => SettingsController::class],['except' => ['create', 'store', 'show', 'destroy']]);
+    Route::post('settings/media', [SettingsController::class, 'storeMedia'])->name('settings.storeMedia');
+    Route::post('settings/ckmedia', [SettingsController::class, 'storeCKEditorImages'])->name('settings.storeCKEditorImages');
+
+    Route::get('settings', [SettingsController::class, 'edit'])->name('settings.edit');
+    Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
+
+    // Faculty
+    Route::delete('faculties/destroy', [SettingsController::class, 'massDestroy'])->name('faculties.massDestroy');
+
+
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password
