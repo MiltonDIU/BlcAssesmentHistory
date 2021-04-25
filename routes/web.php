@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\ProgramsController;
 use App\Http\Controllers\Admin\ProfilesController;
+use App\Http\Controllers\Admin\SemesterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,7 +58,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'faculties' => FacultyController::class,
         'departments' => DepartmentController::class,
         'programs' => ProgramsController::class,
+        'semesters' => SemesterController::class,
     ]);
+    // Semester
+    Route::delete('semesters/destroy', [SemesterController::class,'massDestroy'])->name('semesters.massDestroy');
     // Programs
     Route::delete('programs/destroy', [ProgramsController::class,'massDestroy'])->name('programs.massDestroy');
     // Department

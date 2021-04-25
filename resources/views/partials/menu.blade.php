@@ -131,7 +131,16 @@
             </li>
         @endif
 
+        @can('semester_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.semesters.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/semesters") || request()->is("admin/semesters/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
+                    </i>
+                    {{ trans('cruds.semester.title') }}
+                </a>
+            </li>
+        @endcan
 
     @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
             @can('profile_password_edit')
