@@ -136,27 +136,30 @@ class PermissionsTableSeeder extends Seeder
 //            ],
 //
 //
+//            [
+//                'id'    => 32,
+//                'title' => 'program_create',
+//            ],
+//            [
+//                'id'    => 33,
+//                'title' => 'program_edit',
+//            ],
+//            [
+//                'id'    => 34,
+//                'title' => 'program_show',
+//            ],
+//            [
+//                'id'    => 35,
+//                'title' => 'program_delete',
+//            ],
+//            [
+//                'id'    => 36,
+//                'title' => 'program_access',
+//            ],
             [
-                'id'    => 32,
-                'title' => 'program_create',
+                'id'    => 37,
+                'title' => 'profile_edit',
             ],
-            [
-                'id'    => 33,
-                'title' => 'program_edit',
-            ],
-            [
-                'id'    => 34,
-                'title' => 'program_show',
-            ],
-            [
-                'id'    => 35,
-                'title' => 'program_delete',
-            ],
-            [
-                'id'    => 36,
-                'title' => 'program_access',
-            ],
-
         ];
 
         Permission::insert($permissions);

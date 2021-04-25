@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\ProgramsController;
+use App\Http\Controllers\Admin\ProfilesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,13 +83,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     // Faculty
     Route::delete('faculties/destroy', [SettingsController::class, 'massDestroy'])->name('faculties.massDestroy');
+//profile
+    Route::post('profiles/media', [ProfilesController::class, 'storeMedia'])->name('profiles.storeMedia');
+    Route::post('profiles/ckmedia', [ProfilesController::class, 'storeCKEditorImages'])->name('profiles.storeCKEditorImages');
+
 
 
 });
+
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password
     if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {
         Route::get('password', [ChangePasswordController::class,'edit'])->name('password.edit');
         Route::post('password', [ChangePasswordController::class,'update'])->name('password.update');
+        Route::post('profile', [ChangePasswordController::class,'updateProfile'])->name('password.updateProfile');
+        Route::post('profile/destroy', [ChangePasswordController::class,'destroy'])->name('password.destroyProfile');
+        Route::get('my-profile', [ProfilesController::class, 'edit'])->name('my-profile.edit');
+        Route::put('my-profile', [ProfilesController::class, 'update'])->name('my-profile.update');
     }
 });
+
+

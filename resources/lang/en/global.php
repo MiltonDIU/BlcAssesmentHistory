@@ -3,6 +3,8 @@
 return [
     'actions'                              => 'Actions',
     'add'                                  => 'Add',
+    'profile'                              => 'Profile',
+    'my_profile'                           => 'My Profile',
     'allRightsReserved'                    => 'All rights reserved.',
     'areYouSure'                           => 'Are you sure?',
     'clickHereToVerify'                    => 'Click here to verify',

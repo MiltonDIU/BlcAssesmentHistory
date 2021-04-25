@@ -17,6 +17,7 @@ class AddRelationshipFieldsToProgramsTable extends Migration
             $table->unsignedBigInteger('department_id');
             $table->foreign('department_id', 'department_fk_3765713')->references('id')->on('departments');
         });
+
     }
 
     /**

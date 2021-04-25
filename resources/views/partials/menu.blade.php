@@ -98,6 +98,16 @@
                 </a>
             </li>
         @endcan
+        @can('profile_edit')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("profile.my-profile.edit") }}" class="c-sidebar-nav-link {{ request()->is("profile/my-profile") || request()->is("profile/my-profile/*") ? "c-active" : "" }}">
+                    <i class="far fa-id-card c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('global.my_profile') }}
+                </a>
+            </li>
+        @endcan
         @if(Gate::check('setting_access'))
             <li class="c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
