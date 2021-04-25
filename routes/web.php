@@ -11,6 +11,7 @@ use App\Http\Controllers\UserVerificationController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\ProgramsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,7 +55,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'audit-logs' => AuditLogsController::class,
         'faculties' => FacultyController::class,
         'departments' => DepartmentController::class,
+        'programs' => ProgramsController::class,
     ]);
+    // Programs
+    Route::delete('programs/destroy', [ProgramsController::class,'massDestroy'])->name('programs.massDestroy');
     // Department
     Route::delete('departments/destroy', [DepartmentController::class,'massDestroy'])->name('departments.massDestroy');
     Route::post('departments/media', [DepartmentController::class,'storeMedia'])->name('departments.storeMedia');

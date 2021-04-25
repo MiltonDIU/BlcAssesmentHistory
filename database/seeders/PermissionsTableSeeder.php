@@ -110,29 +110,51 @@ class PermissionsTableSeeder extends Seeder
 //                'id'    => 25,
 //                'title' => 'faculty_delete',
 //            ],
+//            [
+//                'id'    => 26,
+//                'title' => 'faculty_access',
+//            ],
+//            [
+//                'id'    => 27,
+//                'title' => 'department_create',
+//            ],
+//            [
+//                'id'    => 28,
+//                'title' => 'department_edit',
+//            ],
+//            [
+//                'id'    => 29,
+//                'title' => 'department_show',
+//            ],
+//            [
+//                'id'    => 30,
+//                'title' => 'department_delete',
+//            ],
+//            [
+//                'id'    => 31,
+//                'title' => 'department_access',
+//            ],
+//
+//
             [
-                'id'    => 26,
-                'title' => 'faculty_access',
+                'id'    => 32,
+                'title' => 'program_create',
             ],
             [
-                'id'    => 27,
-                'title' => 'department_create',
+                'id'    => 33,
+                'title' => 'program_edit',
             ],
             [
-                'id'    => 28,
-                'title' => 'department_edit',
+                'id'    => 34,
+                'title' => 'program_show',
             ],
             [
-                'id'    => 29,
-                'title' => 'department_show',
+                'id'    => 35,
+                'title' => 'program_delete',
             ],
             [
-                'id'    => 30,
-                'title' => 'department_delete',
-            ],
-            [
-                'id'    => 31,
-                'title' => 'department_access',
+                'id'    => 36,
+                'title' => 'program_access',
             ],
 
         ];

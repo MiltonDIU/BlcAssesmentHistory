@@ -88,6 +88,16 @@
                 </a>
             </li>
         @endcan
+        @can('program_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.programs.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/programs") || request()->is("admin/programs/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.program.title') }}
+                </a>
+            </li>
+        @endcan
         @if(Gate::check('setting_access'))
             <li class="c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
