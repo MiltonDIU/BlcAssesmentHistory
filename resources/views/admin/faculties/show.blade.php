@@ -67,5 +67,30 @@
     </div>
 
 
+    <div class="card">
+        <div class="card-header">
+            {{ trans('global.relatedData') }}
+        </div>
+        <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="#faculty_departments" role="tab" data-toggle="tab">
+                    {{ trans('cruds.department.title') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#faculty_assessments" role="tab" data-toggle="tab">
+                    {{ trans('cruds.assessment.title') }}
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" role="tabpanel" id="faculty_departments">
+                @includeIf('admin.faculties.relationships.facultyDepartments', ['departments' => $faculty->facultyDepartments])
+            </div>
+            <div class="tab-pane" role="tabpanel" id="faculty_assessments">
+                @includeIf('admin.faculties.relationships.facultyAssessments', ['assessments' => $faculty->facultyAssessments])
+            </div>
+        </div>
+    </div>
 
 @endsection

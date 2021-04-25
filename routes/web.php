@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProgramsController;
 use App\Http\Controllers\Admin\ProfilesController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\ExamTypeController;
+use App\Http\Controllers\Admin\AssessmentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,7 +62,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'programs' => ProgramsController::class,
         'semesters' => SemesterController::class,
         'exam-types' => ExamTypeController::class,
+        'assessments' => AssessmentController::class,
     ]);
+    // Assessment
+    Route::delete('assessments/destroy', [AssessmentController::class,'massDestroy'])->name('assessments.massDestroy');
+
     // Exam Type
     Route::delete('exam-types/destroy', [ExamTypeController::class,'massDestroy'])->name('exam-types.massDestroy');
     // Semester

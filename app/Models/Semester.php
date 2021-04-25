@@ -40,4 +40,9 @@ class Semester extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    public function semesterAssessments()
+    {
+        return $this->hasMany(Assessment::class, 'semester_id', 'id');
+    }
 }

@@ -42,6 +42,11 @@ class Program extends Model
     {
         return $this->belongsTo(Department::class, 'department_id');
     }
+    public function programAssessments()
+    {
+        return $this->hasMany(Assessment::class, 'program_id', 'id');
+    }
+
 
     protected function serializeDate(DateTimeInterface $date)
     {

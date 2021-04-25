@@ -141,6 +141,7 @@
                 </a>
             </li>
         @endcan
+
         @can('exam_type_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.exam-types.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/exam-types") || request()->is("admin/exam-types/*") ? "c-active" : "" }}">
@@ -148,6 +149,16 @@
 
                     </i>
                     {{ trans('cruds.examType.title') }}
+                </a>
+            </li>
+        @endcan
+        @can('assessment_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.assessments.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/assessments") || request()->is("admin/assessments/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.assessment.title') }}
                 </a>
             </li>
         @endcan

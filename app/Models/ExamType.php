@@ -35,6 +35,10 @@ class ExamType extends Model
         'updated_at',
         'deleted_at',
     ];
+    public function examTypeAssessments()
+    {
+        return $this->hasMany(Assessment::class, 'exam_type_id', 'id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

@@ -47,6 +47,16 @@ class Department extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
+    public function departmentPrograms()
+    {
+        return $this->hasMany(Program::class, 'department_id', 'id');
+    }
+
+    public function departmentAssessments()
+    {
+        return $this->hasMany(Assessment::class, 'department_id', 'id');
+    }
+
     public function faculty()
     {
         return $this->belongsTo(Faculty::class, 'faculty_id');
