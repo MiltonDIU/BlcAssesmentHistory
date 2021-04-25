@@ -160,25 +160,45 @@ class PermissionsTableSeeder extends Seeder
 //                'id'    => 37,
 //                'title' => 'profile_edit',
 //            ],
+//            [
+//                'id'    => 38,
+//                'title' => 'semester_access',
+//            ],
+//            [
+//                'id'    => 39,
+//                'title' => 'semester_create',
+//            ],
+//            [
+//                'id'    => 40,
+//                'title' => 'semester_edit',
+//            ],
+//            [
+//                'id'    => 41,
+//                'title' => 'semester_show',
+//            ],
+//            [
+//                'id'    => 42,
+//                'title' => 'semester_delete',
+//            ],
             [
-                'id'    => 38,
-                'title' => 'semester_access',
+                'id'    => 43,
+                'title' => 'exam_type_create',
             ],
             [
-                'id'    => 39,
-                'title' => 'semester_create',
+                'id'    => 44,
+                'title' => 'exam_type_edit',
             ],
             [
-                'id'    => 40,
-                'title' => 'semester_edit',
+                'id'    => 45,
+                'title' => 'exam_type_show',
             ],
             [
-                'id'    => 41,
-                'title' => 'semester_show',
+                'id'    => 46,
+                'title' => 'exam_type_delete',
             ],
             [
-                'id'    => 42,
-                'title' => 'semester_delete',
+                'id'    => 47,
+                'title' => 'exam_type_access',
             ],
 
         ];

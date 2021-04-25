@@ -293,4 +293,25 @@ return [
             'deleted_at_helper' => ' ',
         ],
     ],
+    'examType' => [
+        'title'          => 'Exam Type',
+        'title_singular' => 'Exam Type',
+        'fields'         => [
+            'id'                => 'ID',
+            'id_helper'         => ' ',
+            'title'             => 'Title',
+            'title_helper'      => 'Name of Exam Type',
+            'slug'              => 'Slug',
+            'slug_helper'       => ' ',
+            'is_active'         => 'Is Active',
+            'is_active_helper'  => ' ',
+            'created_at'        => 'Created at',
+            'created_at_helper' => ' ',
+            'updated_at'        => 'Updated at',
+            'updated_at_helper' => ' ',
+            'deleted_at'        => 'Deleted at',
+            'deleted_at_helper' => ' ',
+        ],
+    ],
+
 ];
