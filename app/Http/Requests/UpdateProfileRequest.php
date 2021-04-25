@@ -30,8 +30,11 @@ class UpdateProfileRequest extends FormRequest
                 'string',
                 'min:11',
                 'max:20',
-                'nullable',
+                'required',
             ],
+            'employee'=>['required','string'],
+            'employee_type'=>['required'],
+            'designation'=>['required','string'],
         ];
     }
 }
