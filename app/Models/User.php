@@ -41,6 +41,7 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'verified',
+        'diu_id',
         'verified_at',
         'verification_token',
         'remember_token',
