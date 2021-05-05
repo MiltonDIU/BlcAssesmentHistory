@@ -32,8 +32,6 @@ Route::get('/', function () {
     return redirect(route('login'));
 
 });
-Route::get('/not-allowed',);
-
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
