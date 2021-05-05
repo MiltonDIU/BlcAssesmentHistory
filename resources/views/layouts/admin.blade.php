@@ -22,6 +22,22 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+
+{{--    <link href="{{ url('assets/css/bootstrap.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/font-awesome.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/all.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/jquery.dataTables.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/buttons.dataTables.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/select.dataTables.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/select2.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/coreui.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/font-awesome.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/dropzone.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ url('assets/css/perfect-scrollbar.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />--}}
+
     @yield('styles')
 </head>
 
@@ -89,6 +105,28 @@
             </form>
         </div>
     </div>
+{{--    <script src="{{ url('assets/jquery.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/bootstrap.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/popper.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/perfect-scrollbar.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/coreui.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/jquery.dataTables.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/dataTables.bootstrap4.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/dataTables.buttons.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/buttons.flash.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/buttons.html5.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/buttons.print.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/buttons.colVis.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/pdfmake.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/vfs_fonts.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/jszip.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/dataTables.select.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/ckeditor.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/moment.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/bootstrap-datetimepicker.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/select2.full.min.js')}}"></script>--}}
+{{--    <script src="{{ url('assets/dropzone.min.js')}}"></script>--}}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

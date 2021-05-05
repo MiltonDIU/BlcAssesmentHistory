@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 class LoginController extends Controller
 {
     /*
@@ -76,6 +78,7 @@ class LoginController extends Controller
         if ($data['employeeId'] !== null) {
             $user = User::where('diu_id', $data['employeeId'])->first();
             if ($user == null) {
+
                 $requestData['diu_id'] = $data['employeeId'];
                 $userData['name']=$data['name'];
                 $userData['email']=$data['email'];
@@ -83,7 +86,9 @@ class LoginController extends Controller
                 $userData['verified']=1;
                 $userData['approved']=1;
                 $userData['password']= Hash::make($request->input('password'));
+
                 $user = User::create($userData);
+
                 if ($user){
                     Profile::create(
                         [

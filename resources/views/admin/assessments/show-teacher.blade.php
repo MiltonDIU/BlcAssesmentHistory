@@ -57,6 +57,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.assessment.fields.erp_course') }}
+                        </th>
+                        <td>
+                            {{ App\Models\Assessment::ERP_COURSE_SELECT[$assessment->erp_course] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.assessment.fields.semester') }}
                         </th>
                         <td>
@@ -119,14 +127,6 @@
                             {{ $assessment->assessment_link }}
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.assessment.fields.erp_course') }}
-                        </th>
-                        <td>
-                            {{ App\Models\Assessment::ERP_COURSE_SELECT[$assessment->erp_course] ?? '' }}
-                        </td>
-                    </tr>
                     </tbody>
                 </table>
                 <div class="form-group">
@@ -137,7 +137,4 @@
             </div>
         </div>
     </div>
-
-
-
 @endsection

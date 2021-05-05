@@ -17,29 +17,18 @@ class UpdateAssessmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'faculty_id' => [
-                'required',
-                'integer',
-            ],
-            'department_id' => [
-                'required',
-                'integer',
-            ],
-            'program_id' => [
-                'required',
-                'integer',
-            ],
-            'semester_id' => [
-                'required',
-                'integer',
-            ],
             'exam_type_id' => [
                 'required',
                 'integer',
             ],
-            'user_id' => [
+            'department' => [
                 'required',
-                'integer',
+            ],
+            'program' => [
+                'required',
+            ],
+            'semester' => [
+                'required',
             ],
             'course_code' => [
                 'string',

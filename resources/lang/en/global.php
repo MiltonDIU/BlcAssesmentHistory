@@ -45,7 +45,7 @@ return [
     'toggleNavigation'                     => 'Toggle navigation',
     'user_name'                            => 'Name',
     'verifyYourEmail'                      => 'Please verify your email',
-    'verifyYourUser'                       => 'To finish your registration - site asks you to verify your email',
+    'verifyYourUser'                       => 'To finish your registration - site asks you to verify your email. note:if you login DIU ERP information then avoid this email',
     'view'                                 => 'View',
     'view_file'                            => 'View file',
     'year'                                 => 'Year',

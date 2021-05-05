@@ -201,26 +201,51 @@ class PermissionsTableSeeder extends Seeder
 //                'title' => 'exam_type_access',
 //            ],
 
+//            [
+//                'id'    => 48,
+//                'title' => 'assessment_create',
+//            ],
+//            [
+//                'id'    => 49,
+//                'title' => 'assessment_edit',
+//            ],
+//            [
+//                'id'    => 50,
+//                'title' => 'assessment_show',
+//            ],
+//            [
+//                'id'    => 51,
+//                'title' => 'assessment_delete',
+//            ],
+//            [
+//                'id'    => 52,
+//                'title' => 'assessment_access',
+//            ],
+//                        [
+//                'id'    => 53,
+//                'title' => 'assessment_my_course',
+//            ],
             [
-                'id'    => 48,
-                'title' => 'assessment_create',
+                'id'    => 54,
+                'title' => 'assessment_list_create',
             ],
             [
-                'id'    => 49,
-                'title' => 'assessment_edit',
+                'id'    => 55,
+                'title' => 'assessment_list_edit',
             ],
             [
-                'id'    => 50,
-                'title' => 'assessment_show',
+                'id'    => 56,
+                'title' => 'assessment_list_show',
             ],
             [
-                'id'    => 51,
-                'title' => 'assessment_delete',
+                'id'    => 57,
+                'title' => 'assessment_list_delete',
             ],
             [
-                'id'    => 52,
-                'title' => 'assessment_access',
+                'id'    => 58,
+                'title' => 'assessment_list_access',
             ],
+
         ];
 
         Permission::insert($permissions);

@@ -2,8 +2,9 @@
 
 namespace App\Http;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-
+use App\Models\AuditLog;
 class Kernel extends HttpKernel
 {
     /**
@@ -69,4 +70,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
     ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->call(function () {
+            AuditLog::where('created_at', '<', Carbon::now()->subDays(7))->delete();
+        })->weekly();
+    }
 }

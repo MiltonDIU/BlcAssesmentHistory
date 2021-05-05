@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ProfilesController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\ExamTypeController;
 use App\Http\Controllers\Admin\AssessmentController;
+use App\Http\Controllers\Admin\AssessmentListController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,11 +29,10 @@ use App\Http\Controllers\Admin\AssessmentController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('login'));
+
 });
-
-//Route::get('/get-bup-course', [GetBupCourseController::class, 'index']);
-
+Route::get('/not-allowed',);
 
 Route::get('/home', function () {
     if (session('status')) {
@@ -50,6 +50,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::get('not-allowed', [HomeController::class, 'notAllowed'])->name('notAllowed');
+    Route::get('assessments/course-list', [AssessmentController::class,'courseList'])->name('assessments.course-list');
+    Route::get('assessments/{course_code}/{course_title}/{department_id}/{department_name}/{semester}/{section_name}/{section_id}/{credit}/{student}/{courseType}', [AssessmentListController::class,'assessmentForm'])->name('assessments.assessment_form');
+    Route::post('assessments/course-list', [AssessmentController::class,'courseList'])->name('assessments.course-list');
+    Route::post('assessments/erp-course-list', [AssessmentController::class,'erpCourseList'])->name('assessments.erp_course_list');
 
 
     Route::resources([
@@ -63,12 +68,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
         'semesters' => SemesterController::class,
         'exam-types' => ExamTypeController::class,
         'assessments' => AssessmentController::class,
+        'assessment-lists' => AssessmentListController::class,
     ]);
+
+    // Assessment List
+    Route::delete('assessment-lists/destroy', [AssessmentListController::class,'massDestroy'])->name('assessment-lists.massDestroy');
+
     // Assessment
     Route::delete('assessments/destroy', [AssessmentController::class,'massDestroy'])->name('assessments.massDestroy');
+    Route::get('assessments/{id}/edit-final', [AssessmentController::class,'edit2'])->name('assessments.editFinal');
+    Route::post('assessments/{id}/edit-final', [AssessmentController::class,'finalSubmit'])->name('assessments.finalSubmit');
 
     // Exam Type
     Route::delete('exam-types/destroy', [ExamTypeController::class,'massDestroy'])->name('exam-types.massDestroy');
+    // Semester
     // Semester
     Route::delete('semesters/destroy', [SemesterController::class,'massDestroy'])->name('semesters.massDestroy');
     // Programs

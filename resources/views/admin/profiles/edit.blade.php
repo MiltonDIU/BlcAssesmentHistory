@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label class="required"  for="mobile">{{ trans('cruds.profile.fields.employee_id') }}</label>
-                    <input class="form-control {{ $errors->has('employee') ? 'is-invalid' : '' }}" type="text" name="employee" id="employee" required value="{{ old('employee', auth()->user()->profile!=null?auth()->user()->profile->employee:"") }}">
+                    <input  {{ auth()->user()->profile!=null?auth()->user()->profile->employee?"disabled":"":"" }} class="form-control {{ $errors->has('employee') ? 'is-invalid' : '' }}" type="text" name="employee" id="employee" required value="{{ old('employee', auth()->user()->profile!=null?auth()->user()->profile->employee:"") }}">
                     @if($errors->has('employee'))
                         <div class="invalid-feedback">
                             {{ $errors->first('employee') }}

@@ -1,72 +1,65 @@
 @extends('layouts.admin')
 @section('content')
-    @can('assessment_create')
+    @can('assessment_list_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.assessments.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.assessment.title_singular') }}
+                <a class="btn btn-success" href="{{ route('admin.assessment-lists.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.assessmentList.title_singular') }}
                 </a>
             </div>
         </div>
     @endcan
-    @php
-        $as = new \App\Http\Controllers\Admin\AssessmentController();
-    @endphp
     <div class="card">
         <div class="card-header">
-            {{ trans('cruds.assessment.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.assessmentList.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body">
-            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Assessment">
+            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-AssessmentList">
                 <thead>
                 <tr>
                     <th width="10">
 
                     </th>
                     <th>
-                        Teacher ID
+                        {{ trans('cruds.assessmentList.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.faculty') }}
+                        {{ trans('cruds.assessmentList.fields.faculty') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.exam_type') }}
+                        {{ trans('cruds.assessmentList.fields.department') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.department') }}
+                        {{ trans('cruds.assessmentList.fields.exam_type') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.program') }}
+                        {{ trans('cruds.assessmentList.fields.program') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.semester') }}
-                    </th>
-{{--                    <th>--}}
-{{--                        {{ trans('cruds.assessment.fields.user') }}--}}
-{{--                    </th>--}}
-{{--                    <th>--}}
-{{--                        {{ trans('cruds.user.fields.email') }}--}}
-{{--                    </th>--}}
-                    <th>
-                        {{ trans('cruds.assessment.fields.course_code') }}
+                        {{ trans('cruds.assessmentList.fields.semester') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.course_name') }}
+                        {{ trans('cruds.assessmentList.fields.blc_course_title') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.section_and_section_ids') }}
+                        {{ trans('cruds.assessmentList.fields.blc_course_code') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.blc_course_link') }}
+                        {{ trans('cruds.assessmentList.fields.blc_course_section') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.assessment_question_link') }}
+                        {{ trans('cruds.assessmentList.fields.blc_course_link') }}
                     </th>
                     <th>
-                        {{ trans('cruds.assessment.fields.assessment_link') }}
+                        {{ trans('cruds.assessmentList.fields.blc_assessment_question_link') }}
                     </th>
-
+                    <th>
+                        {{ trans('cruds.assessmentList.fields.blc_assessment_link') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.assessmentList.fields.user') }}
+                    </th>
                     <th>
                         &nbsp;
                     </th>
@@ -81,7 +74,15 @@
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
                             @foreach($faculties as $key => $item)
-                                <option value="{{ $item->id }}">{{ $item->short_name }}</option>
+                                <option value="{{ $item->title }}">{{ $item->title }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <select class="search" strict="true">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach(App\Models\AssessmentList::DEPARTMENT_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -96,54 +97,39 @@
                     <td>
                         <select class="search" strict="true">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($as->departmentList() as $key => $item)
-                                <option value="{{ $item['id'] }}">{{ $item['departmentShortName'] }}</option>
+                            @foreach(App\Models\AssessmentList::PROGRAM_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
                     </td>
                     <td>
-                        <select class="search" strict="true">
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($as->programList() as $key => $item)
-                                <option value="{{ $item['id'] }}">{{ $item['programShortName'] }}</option>
+                            @foreach($users as $key => $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
-                    </td>
-                    <td>
-                        <select class="search" strict="true">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($as->semesterList() as $key => $item)
-                                <option value="{{ $item['id'] }}">{{ $item['semesterName'].'-'.$item['semesterYear'] }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-{{--                    <td>--}}
-{{--                        <select class="search">--}}
-{{--                            <option value>{{ trans('global.all') }}</option>--}}
-{{--                            @foreach($users as $key => $item)--}}
-{{--                                <option value="{{ $item->name }}">{{ $item->name }}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-{{--                    </td>--}}
-{{--                    <td>--}}
-{{--                    </td>--}}
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                     </td>
@@ -161,11 +147,11 @@
     <script>
         $(function () {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-            @can('assessment_delete')
+            @can('assessment_list_delete')
             let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
             let deleteButton = {
                 text: deleteButtonTrans,
-                url: "{{ route('admin.assessments.massDestroy') }}",
+                url: "{{ route('admin.assessment-lists.massDestroy') }}",
                 className: 'btn-danger',
                 action: function (e, dt, node, config) {
                     var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
@@ -197,30 +183,29 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.assessments.index') }}",
+                ajax: "{{ route('admin.assessment-lists.index') }}",
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
-                    { data: 'teacherid', name: 'teacherid' },
+                    { data: 'id', name: 'id' },
                     { data: 'faculty_title', name: 'faculty.title' },
-                    { data: 'exam_type_title', name: 'exam_type.title' },
                     { data: 'department', name: 'department' },
+                    { data: 'exam_type_title', name: 'exam_type.title' },
                     { data: 'program', name: 'program' },
                     { data: 'semester', name: 'semester' },
-                    // { data: 'user_name', name: 'user.name' },
-                    // { data: 'user.email', name: 'user.email' },
-                    { data: 'course_code', name: 'course_code' },
-                    { data: 'course_name', name: 'course_name' },
-                    { data: 'section_and_section_ids', name: 'section_and_section_ids' },
+                    { data: 'blc_course_title', name: 'blc_course_title' },
+                    { data: 'blc_course_code', name: 'blc_course_code' },
+                    { data: 'blc_course_section', name: 'blc_course_section' },
                     { data: 'blc_course_link', name: 'blc_course_link' },
-                    { data: 'assessment_question_link', name: 'assessment_question_link' },
-                    { data: 'assessment_link', name: 'assessment_link' },
+                    { data: 'blc_assessment_question_link', name: 'blc_assessment_question_link' },
+                    { data: 'blc_assessment_link', name: 'blc_assessment_link' },
+                    { data: 'user_name', name: 'user.name' },
                     { data: 'actions', name: '{{ trans('global.actions') }}' }
                 ],
                 orderCellsTop: true,
                 order: [[ 1, 'desc' ]],
-                pageLength: 10,
+                pageLength: 100,
             };
-            let table = $('.datatable-Assessment').DataTable(dtOverrideGlobals);
+            let table = $('.datatable-AssessmentList').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
                 $($.fn.dataTable.tables(true)).DataTable()
                     .columns.adjust();

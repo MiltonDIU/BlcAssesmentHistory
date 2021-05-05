@@ -3,13 +3,13 @@
 
     <div class="card">
         <div class="card-header">
-            {{ trans('global.show') }} {{ trans('cruds.assessment.title') }}
+            {{ trans('global.show') }} {{ trans('cruds.assessmentList.title') }}
         </div>
 
         <div class="card-body">
             <div class="form-group">
                 <div class="form-group">
-                    <a class="btn btn-default" href="{{ route('admin.assessments.index') }}">
+                    <a class="btn btn-default" href="{{ route('admin.assessment-lists.index') }}">
                         {{ trans('global.back_to_list') }}
                     </a>
                 </div>
@@ -17,120 +17,120 @@
                     <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.id') }}
+                            {{ trans('cruds.assessmentList.fields.id') }}
                         </th>
                         <td>
-                            {{ $assessment->id }}
+                            {{ $assessmentList->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.faculty') }}
+                            {{ trans('cruds.assessmentList.fields.faculty') }}
                         </th>
                         <td>
-                            {{ $assessment->faculty->title ?? '' }}
+                            {{ $assessmentList->faculty->title ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.exam_type') }}
+                            {{ trans('cruds.assessmentList.fields.department') }}
                         </th>
                         <td>
-                            {{ $assessment->exam_type->title ?? '' }}
+                            {{ App\Models\AssessmentList::DEPARTMENT_SELECT[$assessmentList->department] ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.department') }}
+                            {{ trans('cruds.assessmentList.fields.exam_type') }}
                         </th>
                         <td>
-                            {{ App\Models\Assessment::DEPARTMENT_SELECT[$assessment->department] ?? '' }}
+                            {{ $assessmentList->exam_type->title ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.program') }}
+                            {{ trans('cruds.assessmentList.fields.program') }}
                         </th>
                         <td>
-                            {{ App\Models\Assessment::PROGRAM_SELECT[$assessment->program] ?? '' }}
+                            {{ App\Models\AssessmentList::PROGRAM_SELECT[$assessmentList->program] ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.semester') }}
+                            {{ trans('cruds.assessmentList.fields.semester') }}
                         </th>
                         <td>
-                            {{ App\Models\Assessment::SEMESTER_SELECT[$assessment->semester] ?? '' }}
+                            {{ $assessmentList->semester }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.user') }}
+                            {{ trans('cruds.assessmentList.fields.blc_course_title') }}
                         </th>
                         <td>
-                            {{ $assessment->user->name ?? '' }}
+                            {{ $assessmentList->blc_course_title }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.course_code') }}
+                            {{ trans('cruds.assessmentList.fields.blc_course_code') }}
                         </th>
                         <td>
-                            {{ $assessment->course_code }}
+                            {{ $assessmentList->blc_course_code }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.course_name') }}
+                            {{ trans('cruds.assessmentList.fields.blc_course_section') }}
                         </th>
                         <td>
-                            {{ $assessment->course_name }}
+                            {{ $assessmentList->blc_course_section }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.section_and_section_ids') }}
+                            {{ trans('cruds.assessmentList.fields.blc_course_link') }}
                         </th>
                         <td>
-                            {{ $assessment->section_and_section_ids }}
+                            {{ $assessmentList->blc_course_link }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.blc_course_link') }}
+                            {{ trans('cruds.assessmentList.fields.blc_assessment_question_link') }}
                         </th>
                         <td>
-                            {{ $assessment->blc_course_link }}
+                            {{ $assessmentList->blc_assessment_question_link }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.assessment_question_link') }}
+                            {{ trans('cruds.assessmentList.fields.blc_assessment_link') }}
                         </th>
                         <td>
-                            {{ $assessment->assessment_question_link }}
+                            {{ $assessmentList->blc_assessment_link }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.assessment_link') }}
+                            {{ trans('cruds.assessmentList.fields.erp_data') }}
                         </th>
                         <td>
-                            {{ $assessment->assessment_link }}
+                            {{ $assessmentList->erp_data }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.erp_course') }}
+                            {{ trans('cruds.assessmentList.fields.user') }}
                         </th>
                         <td>
-                            {{ App\Models\Assessment::ERP_COURSE_SELECT[$assessment->erp_course] ?? '' }}
+                            {{ $assessmentList->user->name ?? '' }}
                         </td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="form-group">
-                    <a class="btn btn-default" href="{{ route('admin.assessments.index') }}">
+                    <a class="btn btn-default" href="{{ route('admin.assessment-lists.index') }}">
                         {{ trans('global.back_to_list') }}
                     </a>
                 </div>

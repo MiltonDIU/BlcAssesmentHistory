@@ -1,4 +1,4 @@
 <?php
 return [
-    'site_title' => 'AdminDashboard',
+    'site_title' => 'COE-BLC',
 ];

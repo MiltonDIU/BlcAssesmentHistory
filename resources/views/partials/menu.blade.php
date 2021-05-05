@@ -152,6 +152,7 @@
                 </a>
             </li>
         @endcan
+
         @can('assessment_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.assessments.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/assessments") || request()->is("admin/assessments/*") ? "c-active" : "" }}">
@@ -159,6 +160,26 @@
 
                     </i>
                     {{ trans('cruds.assessment.title') }}
+                </a>
+            </li>
+        @endcan
+           @can('assessment_my_course')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.assessments.course-list") }}" class="c-sidebar-nav-link {{ request()->is("admin/assessments") || request()->is("admin/assessments/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                   Teacher Course List Semester Wise
+                </a>
+            </li>
+        @endcan
+        @can('assessment_list_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.assessment-lists.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/assessment-lists") || request()->is("admin/assessment-lists/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.assessmentList.title') }}
                 </a>
             </li>
         @endcan

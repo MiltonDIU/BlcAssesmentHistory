@@ -11,8 +11,8 @@
                 @method('PUT')
                 @csrf
                 <div class="form-group">
-                    <label class="required" for="faculty_id">{{ trans('cruds.assessment.fields.faculty') }}</label>
-                    <select class="form-control select2 {{ $errors->has('faculty') ? 'is-invalid' : '' }}" name="faculty_id" id="faculty_id" required>
+                    <label for="faculty_id">{{ trans('cruds.assessment.fields.faculty') }}</label>
+                    <select class="form-control select2 {{ $errors->has('faculty') ? 'is-invalid' : '' }}" name="faculty_id" id="faculty_id">
                         @foreach($faculties as $id => $entry)
                             <option value="{{ $id }}" {{ (old('faculty_id') ? old('faculty_id') : $assessment->faculty->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                         @endforeach
@@ -23,48 +23,6 @@
                         </div>
                     @endif
                     <span class="help-block">{{ trans('cruds.assessment.fields.faculty_helper') }}</span>
-                </div>
-                <div class="form-group">
-                    <label class="required" for="department_id">{{ trans('cruds.assessment.fields.department') }}</label>
-                    <select class="form-control select2 {{ $errors->has('department') ? 'is-invalid' : '' }}" name="department_id" id="department_id" required>
-                        @foreach($departments as $id => $entry)
-                            <option value="{{ $id }}" {{ (old('department_id') ? old('department_id') : $assessment->department->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('department'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('department') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.assessment.fields.department_helper') }}</span>
-                </div>
-                <div class="form-group">
-                    <label class="required" for="program_id">{{ trans('cruds.assessment.fields.program') }}</label>
-                    <select class="form-control select2 {{ $errors->has('program') ? 'is-invalid' : '' }}" name="program_id" id="program_id" required>
-                        @foreach($programs as $id => $entry)
-                            <option value="{{ $id }}" {{ (old('program_id') ? old('program_id') : $assessment->program->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('program'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('program') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.assessment.fields.program_helper') }}</span>
-                </div>
-                <div class="form-group">
-                    <label class="required" for="semester_id">{{ trans('cruds.assessment.fields.semester') }}</label>
-                    <select class="form-control select2 {{ $errors->has('semester') ? 'is-invalid' : '' }}" name="semester_id" id="semester_id" required>
-                        @foreach($semesters as $id => $entry)
-                            <option value="{{ $id }}" {{ (old('semester_id') ? old('semester_id') : $assessment->semester->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('semester'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('semester') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.assessment.fields.semester_helper') }}</span>
                 </div>
                 <div class="form-group">
                     <label class="required" for="exam_type_id">{{ trans('cruds.assessment.fields.exam_type') }}</label>
@@ -80,7 +38,67 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.assessment.fields.exam_type_helper') }}</span>
                 </div>
+                <div class="form-group">
+                    <label class="required">{{ trans('cruds.assessment.fields.department') }}</label>
+                    <select class="form-control {{ $errors->has('department') ? 'is-invalid' : '' }}" name="department" id="department" required>
+                        <option value  {{ old('department', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                        @foreach($departments as $key => $department)
+                            <option value="{{ $department['id'] }}" {{ old('department', $assessment->department) === (string) $department['id'] ? 'selected' : '' }}>{{ $department['departmentName'] }}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('department'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('department') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.assessment.fields.department_helper') }}</span>
+                </div>
+                <div class="form-group">
+                    <label class="required">{{ trans('cruds.assessment.fields.program') }}</label>
+                    <select class="form-control {{ $errors->has('program') ? 'is-invalid' : '' }}" name="program" id="program" required>
+                        <option value disabled {{ old('program', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
 
+                        @foreach($programs as $key => $program)
+                            <option value="{{ $program['id'] }}" {{ old('program', $assessment->program) === (string) $program['id'] ? 'selected' : '' }}>{{ $program['programName'] ?? ''}}</option>
+                        @endforeach
+
+                    </select>
+                    @if($errors->has('program'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('program') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.assessment.fields.program_helper') }}</span>
+                </div>
+                <div class="form-group">
+                    <label class="required">{{ trans('cruds.assessment.fields.semester') }}</label>
+                    <select class="form-control {{ $errors->has('semester') ? 'is-invalid' : '' }}" name="semester" id="semester" required>
+                        <option value disabled {{ old('semester', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                        @foreach($semesters as $key => $value)
+                            <option value="{{ $value['id'] }}" {{ old('semester', $assessment->semester) === (string) $value['id'] ? 'selected' : '' }}>{{ $value['semesterName'].'-'.$value['semesterYear'] }}</option>
+                        @endforeach
+                    </select>
+                    @if($errors->has('semester'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('semester') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.assessment.fields.semester_helper') }}</span>
+                </div>
+                <div class="form-group">
+                    <label>{{ trans('cruds.assessment.fields.erp_course') }}</label>
+                    <select class="form-control {{ $errors->has('erp_course') ? 'is-invalid' : '' }}" name="erp_course" id="erp_course">
+                        <option value disabled {{ old('erp_course', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+
+                    </select>
+                    <span>if didn't show course then change the semester and select your assessment semester again.</span>
+                    @if($errors->has('erp_course'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('erp_course') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.assessment.fields.erp_course_helper') }}</span>
+                </div>
                 <div class="form-group">
                     <label class="required" for="course_code">{{ trans('cruds.assessment.fields.course_code') }}</label>
                     <input class="form-control {{ $errors->has('course_code') ? 'is-invalid' : '' }}" type="text" name="course_code" id="course_code" value="{{ old('course_code', $assessment->course_code) }}" required>
@@ -141,6 +159,7 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.assessment.fields.assessment_link_helper') }}</span>
                 </div>
+
                 <div class="form-group">
                     <button class="btn btn-danger" type="submit">
                         {{ trans('global.save') }}
@@ -152,4 +171,38 @@
 
 
 
+@endsection
+
+
+@section('scripts')
+    @parent
+    <script type="text/javascript">
+
+        $("select[name='semester']").change(function(){
+
+            var semester = $(this).val();
+
+            var token = $("input[name='_token']").val();
+
+            $.ajax({
+
+                url: "<?php echo route('admin.assessments.erp_course_list') ?>",
+
+                method: 'POST',
+
+                data: {semester:semester, _token:token},
+
+                success: function(data) {
+                    console.log(data);
+                    $("select[name='erp_course']").html('');
+                    //
+                    $("select[name='erp_course']").html(data.options);
+
+                }
+
+            });
+
+        });
+
+    </script>
 @endsection
