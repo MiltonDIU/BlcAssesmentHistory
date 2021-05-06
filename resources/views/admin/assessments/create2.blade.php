@@ -12,9 +12,10 @@
                 <div class="form-group">
                     <label class="required" for="faculty_id">{{ trans('cruds.assessment.fields.faculty') }}</label>
                     <select class="form-control select2 {{ $errors->has('faculty') ? 'is-invalid' : '' }}" name="faculty_id" id="faculty_id" required>
-                        @foreach($faculties as $id => $entry)
-                            <option value="{{ $id }}" {{ old('faculty_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                        @endforeach
+
+                            @foreach($faculties as $id => $entry)
+                                <option value="{{ $entry['id'] }}" {{ old('faculty_id') == $entry['id'] ? 'selected' : '' }}>{{ $entry['facultyName'] }}</option>
+                            @endforeach
                     </select>
                     @if($errors->has('faculty'))
                         <div class="invalid-feedback">

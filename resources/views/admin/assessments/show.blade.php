@@ -5,7 +5,9 @@
         <div class="card-header">
             {{ trans('global.show') }} {{ trans('cruds.assessment.title') }}
         </div>
-
+        @php
+            $as = new \App\Http\Controllers\Admin\AssessmentController();
+        @endphp
         <div class="card-body">
             <div class="form-group">
                 <div class="form-group">
@@ -17,18 +19,14 @@
                     <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.id') }}
-                        </th>
-                        <td>
-                            {{ $assessment->id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.assessment.fields.faculty') }}
                         </th>
                         <td>
-                            {{ $assessment->faculty->title ?? '' }}
+                            @foreach($as->facultyList()  as $faculty)
+                                @if($faculty['id']==$assessment->faculty_id)
+                                    {{$faculty['facultyName']}}
+                                @endif
+                            @endforeach
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +42,12 @@
                             {{ trans('cruds.assessment.fields.department') }}
                         </th>
                         <td>
-                            {{ App\Models\Assessment::DEPARTMENT_SELECT[$assessment->department] ?? '' }}
+
+                            @foreach($as->departmentList()  as $department)
+                                @if($department['id']==$assessment->department)
+                                    {{$department['departmentName']}}
+                                @endif
+                            @endforeach
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +55,7 @@
                             {{ trans('cruds.assessment.fields.program') }}
                         </th>
                         <td>
-                            {{ App\Models\Assessment::PROGRAM_SELECT[$assessment->program] ?? '' }}
+                            {{ $assessment->program ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -60,7 +63,11 @@
                             {{ trans('cruds.assessment.fields.semester') }}
                         </th>
                         <td>
-                            {{ App\Models\Assessment::SEMESTER_SELECT[$assessment->semester] ?? '' }}
+                            @foreach($as->semesterList()  as $semester)
+                                @if($semester['id']==$assessment->semester)
+                                    {{$semester['semesterName']}}-{{$semester['semesterYear']}}
+                                @endif
+                            @endforeach
                         </td>
                     </tr>
                     <tr>
@@ -121,10 +128,29 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.assessment.fields.erp_course') }}
+                           ERP Course Information
                         </th>
                         <td>
-                            {{ App\Models\Assessment::ERP_COURSE_SELECT[$assessment->erp_course] ?? '' }}
+                            <table>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Title</th>
+                                    <th>Section Id</th>
+                                    <th>Section</th>
+                                    <th>Department Id</th>
+                                    <th>Department Name</th>
+                                    <th>Course Type</th>
+                                    <th>Number of Student</th>
+                                    <th>Credit</th>
+                                </tr>
+                                <tr>
+
+                            @foreach(explode("_",$assessment->erp_course) as $course)
+                                <td>{{$course}}</td>
+                            @endforeach
+
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     </tbody>

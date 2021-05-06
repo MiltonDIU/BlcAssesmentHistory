@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::get('assessments/{course_code}/{course_title}/{department_id}/{department_name}/{semester}/{section_name}/{section_id}/{credit}/{student}/{courseType}', [AssessmentListController::class,'assessmentForm'])->name('assessments.assessment_form');
     Route::post('assessments/course-list', [AssessmentController::class,'courseList'])->name('assessments.course-list');
     Route::post('assessments/erp-course-list', [AssessmentController::class,'erpCourseList'])->name('assessments.erp_course_list');
+    Route::post('assessments/erp-program-list', [AssessmentController::class,'erpProgramList'])->name('assessments.erp_program_list');
 
 
     Route::resources([

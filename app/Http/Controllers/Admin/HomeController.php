@@ -6,14 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Assessment;
 use App\Models\ExamType;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Admin\AssessmentController;
 class HomeController extends Controller
 {
     public function index()
     {
-        $assesments = new AssessmentController();
         $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
-        $semesters = $assesments->getApiData($url);
+        $semesters = $this->getApiData($url);
         $semesterData = array();
         $name = $value =$value2 ="";
         $i=0;$j=1;
@@ -24,7 +22,7 @@ class HomeController extends Controller
                 $name .= '"'.$semester['semesterName'].'-'.$semester['semesterYear'].'"';
                 $value .= $count;
                 $value2 .= $count2;
-               $i++;
+                $i++;
                 if ($i==$j){
                     $name .= ',';
                     $value .= ',';
@@ -45,6 +43,30 @@ class HomeController extends Controller
     }
     public function notAllowed(){
         return view('not-allowed');
+    }
+
+    public function getApiData($url){
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'clientId: d7aea3a47a474f8f9f53b85ae0adb3d4',
+                'clientSecret: 1d9fe966-5f38-44a1-a277-9acb2943901a',
+                'Cookie: JSESSIONID=5FCA72D6B7FBAD4EA53200554B71820C'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response, true);
     }
 
 

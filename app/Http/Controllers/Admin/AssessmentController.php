@@ -25,7 +25,7 @@ class AssessmentController extends Controller
         abort_if(Gate::denies('assessment_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if (auth()->user()->is_admin) {
             if ($request->ajax()) {
-                $query = Assessment::with(['faculty', 'exam_type', 'user'])->select(sprintf('%s.*', (new Assessment())->table));
+                $query = Assessment::with(['exam_type', 'user'])->select(sprintf('%s.*', (new Assessment())->table));
                 $table = Datatables::of($query);
 
                 $table->addColumn('placeholder', '&nbsp;');
@@ -48,9 +48,9 @@ class AssessmentController extends Controller
                 $table->editColumn('teacherid', function ($row) {
                     return $row->teacherid ? $row->teacherid : '';
                 });
-                $table->addColumn('faculty_title', function ($row) {
-                    return $row->faculty ? $row->faculty->title : '';
-                });
+//                $table->addColumn('faculty_title', function ($row) {
+//                    return $row->faculty ? $row->faculty->title : '';
+//                });
 
                 $table->addColumn('exam_type_title', function ($row) {
                     return $row->exam_type ? $row->exam_type->title : '';
@@ -94,7 +94,7 @@ class AssessmentController extends Controller
 //                    return $row->erp_course ? Assessment::ERP_COURSE_SELECT[$row->erp_course] : '';
 //                });
 
-                $table->rawColumns(['actions', 'placeholder', 'faculty', 'exam_type', 'user']);
+                $table->rawColumns(['actions', 'placeholder', 'exam_type', 'user']);
 
                 return $table->make(true);
             }
@@ -124,8 +124,10 @@ class AssessmentController extends Controller
     {
         abort_if(Gate::denies('assessment_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $faculties = Faculty::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+//        $faculties = Faculty::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/faculty-list";
+        $faculties = $this->getApiData($url);
         $exam_types = ExamType::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
         $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
         $semesters =$this->getApiData($url);
@@ -141,6 +143,10 @@ class AssessmentController extends Controller
         $data = $request->all();
         $data['user_id']=Auth::id();
         $data['teacherid']=Auth::user()->diu_id;
+        $erp_course = $request->input('erp_course');
+        $erp_course =  explode("_", $erp_course);
+        $data['department'] = $erp_course[4];
+
         $assessment = Assessment::create($data);
         return redirect()->route('admin.assessments.index');
     }
@@ -153,10 +159,10 @@ class AssessmentController extends Controller
         return redirect()->route('admin.assessments.index');
     }
 
-    public function edit(Assessment $assessment)
+    public function edit($id)
     {
         abort_if(Gate::denies('assessment_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+$assessment = Assessment::find(decrypt($id));
         if (!auth()->user()->is_admin) {
             $assessment =  Assessment::where('id',$assessment->id)->where('user_id',auth()->id())->first();
             if ($assessment==null){
@@ -164,7 +170,8 @@ class AssessmentController extends Controller
             }
         }
 
-        $faculties = Faculty::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/faculty-list";
+        $faculties = $this->getApiData($url);
 
         $exam_types = ExamType::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -183,7 +190,7 @@ class AssessmentController extends Controller
 
     public function edit2($id)
     {
-        $assessment = Assessment::find($id);
+        $assessment = Assessment::find(decrypt($id));
         abort_if(Gate::denies('assessment_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         if(!auth()->user()->is_admin) {
             $assessment =  Assessment::where('id',$assessment->id)->where('user_id',auth()->id())->first();
@@ -191,7 +198,8 @@ class AssessmentController extends Controller
                 return redirect(route('admin.notAllowed'));
             }
         }
-        $faculties = Faculty::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/faculty-list";
+        $faculties = $this->getApiData($url);
 
         $exam_types = ExamType::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
         $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
@@ -211,12 +219,11 @@ class AssessmentController extends Controller
         return redirect()->route('admin.assessments.index');
     }
 
-    public function show(Assessment $assessment)
+    public function show($id)
     {
         abort_if(Gate::denies('assessment_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $assessment->load('faculty', 'exam_type', 'user');
-
+        $assessment = Assessment::find(decrypt($id));
+        $assessment->load('exam_type', 'user');
         return view('admin.assessments.show', compact('assessment'));
     }
 
@@ -259,7 +266,11 @@ class AssessmentController extends Controller
 
     public function erpCourseList(Request $request)
     {
-$employee_id = Auth::user()->diu_id;
+        if ($request->input('teacherid')){
+            $employee_id =$request->input('teacherid');
+        }else{
+            $employee_id = Auth::user()->diu_id;
+        }
         if ($request->ajax()) {
             $semester= $request->input('semester');
             $url= 'http://apps.diu.edu.bd:8021/rest/v1/teacher/course-list/semester/'.$semester.'/teacher/'.$employee_id;
@@ -269,6 +280,17 @@ $employee_id = Auth::user()->diu_id;
         }
     }
 
+    public function erpProgramList(Request $request)
+    {
+        if ($request->ajax()) {
+            $erp_course= $request->input('erp_course');
+            $erp_course= explode("_", $erp_course);
+            $url= 'http://apps.diu.edu.bd:8686/externals/rest/smis/program-list/department/'.$erp_course[4];
+            $programs  = $this->getApiData($url);
+            $data = view('admin.assessments.erp_program_list',compact('programs'))->render();
+            return response()->json(['options'=>$data]);
+        }
+    }
 
     public function departmentList(){
         $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/department-list";
@@ -283,7 +305,10 @@ $employee_id = Auth::user()->diu_id;
             $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/program-list";
             return $this->getApiData($url);
     }
-
+    public function facultyList(){
+        $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/faculty-list";
+        return $this->getApiData($url);
+    }
 
     public function getApiData($url){
         $curl = curl_init();

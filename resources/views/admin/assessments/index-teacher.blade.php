@@ -96,7 +96,7 @@
 @if(\App\Models\Assessment::checkExamType($assessment->course_code,$assessment->user_id,$assessment->semester)<2)
                                 @foreach($examTypes as $exam)
                                     @if($assessment->exam_type->id!=$exam->id)
-                                    <a href="{{route('admin.assessments.editFinal',[$assessment->id])}}" class="btn btn-xs btn-info">
+                                    <a href="{{route('admin.assessments.editFinal',[encrypt($assessment->id)])}}" class="btn btn-xs btn-info">
                                         {{$exam->title}} Assessment
                                     </a>
                                         @endif
@@ -106,7 +106,7 @@
                                 @endif
 
                                 @can('assessment_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.assessments.show', $assessment->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.assessments.show', encrypt($assessment->id)) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan

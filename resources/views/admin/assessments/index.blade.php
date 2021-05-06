@@ -80,10 +80,13 @@
                     <td>
                         <select class="search">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach($faculties as $key => $item)
-                                <option value="{{ $item->id }}">{{ $item->short_name }}</option>
+                            @foreach($as->facultyList() as $key => $item)
+                                <option value="{{ $item['id'] }}">{{ $item['facultyShortName'] }}</option>
                             @endforeach
                         </select>
+
+
+
                     </td>
                     <td>
                         <select class="search">
@@ -201,7 +204,7 @@
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'teacherid', name: 'teacherid' },
-                    { data: 'faculty_title', name: 'faculty.title' },
+                    { data: 'faculty_id', name: 'faculty_id' },
                     { data: 'exam_type_title', name: 'exam_type.title' },
                     { data: 'department', name: 'department' },
                     { data: 'program', name: 'program' },

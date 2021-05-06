@@ -10,11 +10,12 @@
             <form method="POST" action="{{ route("admin.assessments.update", [$assessment->id]) }}" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
+                <input type="hidden" name="teacherid" value="{{$assessment->teacherid}}">
                 <div class="form-group">
                     <label for="faculty_id">{{ trans('cruds.assessment.fields.faculty') }}</label>
                     <select class="form-control select2 {{ $errors->has('faculty') ? 'is-invalid' : '' }}" name="faculty_id" id="faculty_id">
                         @foreach($faculties as $id => $entry)
-                            <option value="{{ $id }}" {{ (old('faculty_id') ? old('faculty_id') : $assessment->faculty->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                            <option value="{{ $entry['id'] }}" {{ old('faculty_id') == $entry['id'] ? 'selected' : '' }}>{{ $entry['facultyName'] }}</option>
                         @endforeach
                     </select>
                     @if($errors->has('faculty'))
@@ -183,6 +184,7 @@
             var semester = $(this).val();
 
             var token = $("input[name='_token']").val();
+            var teacherid = $("input[name='teacherid']").val();
 
             $.ajax({
 
@@ -190,7 +192,7 @@
 
                 method: 'POST',
 
-                data: {semester:semester, _token:token},
+                data: {semester:semester,teacherid:teacherid, _token:token},
 
                 success: function(data) {
                     console.log(data);

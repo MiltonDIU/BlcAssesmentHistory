@@ -26,12 +26,10 @@ class CreateAssessmentsTable extends Migration
             $table->string('blc_course_link');
             $table->string('assessment_question_link');
             $table->string('assessment_link');
-            $table->string('erp_course')->nullable();
-            $table->unsignedBigInteger('faculty_id')->nullable();
-            $table->foreign('faculty_id', 'faculty_fk_3766655')->references('id')->on('faculties');
+            $table->string('erp_course');
+            $table->string('faculty_id');
             $table->unsignedBigInteger('exam_type_id');
             $table->foreign('exam_type_id', 'exam_type_fk_3766659')->references('id')->on('exam_types');
-
             $table->foreign('user_id', 'user_fk_3766660')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();

@@ -22,9 +22,10 @@
                 <div class="form-group">
                     <label for="faculty_id">{{ trans('cruds.assessment.fields.faculty') }}</label>
                     <select disabled class="form-control select2 {{ $errors->has('faculty') ? 'is-invalid' : '' }}" name="faculty_id" id="faculty_id">
-                        @foreach($faculties as $id => $entry)
-                            <option value="{{ $id }}" {{ (old('faculty_id') ? old('faculty_id') : $assessment->faculty->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                        @endforeach
+
+                            @foreach($faculties as $id => $entry)
+                                <option value="{{ $entry['id'] }}" {{ old('faculty_id') == $entry['id'] ? 'selected' : '' }} {{ (old('faculty_id') ? old('faculty_id') : $assessment->faculty_id ?? '') == $entry['id'] ? 'selected' : '' }}>{{ $entry['facultyName'] }}</option>
+                            @endforeach
                     </select>
                     @if($errors->has('faculty'))
                         <div class="invalid-feedback">
@@ -33,24 +34,26 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.assessment.fields.faculty_helper') }}</span>
                 </div>
-                 <div class="form-group">
-                    <label class="required">{{ trans('cruds.assessment.fields.department') }}</label>
-                    <select disabled class="form-control {{ $errors->has('department') ? 'is-invalid' : '' }}" name="department" id="department" required>
-                        <option value  {{ old('department', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                        @foreach($departments as $key => $department)
-                            <option value="{{ $department['id'] }}" {{ old('department', $assessment->department) === (string) $department['id'] ? 'selected' : '' }}>{{ $department['departmentName'] }}</option>
+
+
+                <div class="form-group">
+                    <label class="required">{{ trans('cruds.assessment.fields.semester') }}</label>
+                    <select disabled class="form-control select2 {{ $errors->has('semester') ? 'is-invalid' : '' }}" name="semester" id="semester" required>
+                        <option value disabled {{ old('semester', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                        @foreach($semesters as $key => $value)
+                            <option value="{{ $value['id'] }}" {{ old('semester', $assessment->semester) === (string) $value['id'] ? 'selected' : '' }}>{{ $value['semesterName'].'-'.$value['semesterYear'] }}</option>
                         @endforeach
                     </select>
-                    @if($errors->has('department'))
+                    @if($errors->has('semester'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('department') }}
+                            {{ $errors->first('semester') }}
                         </div>
                     @endif
-                    <span class="help-block">{{ trans('cruds.assessment.fields.department_helper') }}</span>
+                    <span class="help-block">{{ trans('cruds.assessment.fields.semester_helper') }}</span>
                 </div>
                 <div class="form-group">
                     <label class="required">{{ trans('cruds.assessment.fields.program') }}</label>
-                    <select disabled class="form-control {{ $errors->has('program') ? 'is-invalid' : '' }}" name="program" id="program" required>
+                    <select disabled class="form-control select2 {{ $errors->has('program') ? 'is-invalid' : '' }}" name="program" id="program" required>
                         <option value disabled {{ old('program', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
 
                         @foreach($programs as $key => $program)
@@ -64,21 +67,6 @@
                         </div>
                     @endif
                     <span class="help-block">{{ trans('cruds.assessment.fields.program_helper') }}</span>
-                </div>
-                <div class="form-group">
-                    <label class="required">{{ trans('cruds.assessment.fields.semester') }}</label>
-                    <select disabled class="form-control {{ $errors->has('semester') ? 'is-invalid' : '' }}" name="semester" id="semester" required>
-                        <option value disabled {{ old('semester', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                        @foreach($semesters as $key => $value)
-                            <option value="{{ $value['id'] }}" {{ old('semester', $assessment->semester) === (string) $value['id'] ? 'selected' : '' }}>{{ $value['semesterName'].'-'.$value['semesterYear'] }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('semester'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('semester') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.assessment.fields.semester_helper') }}</span>
                 </div>
 {{--                <div class="form-group">--}}
 {{--                    <label>{{ trans('cruds.assessment.fields.erp_course') }}</label>--}}
