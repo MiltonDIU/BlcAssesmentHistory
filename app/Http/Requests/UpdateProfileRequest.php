@@ -32,7 +32,7 @@ class UpdateProfileRequest extends FormRequest
                 'max:20',
                 'required',
             ],
-            'employee'=>['required','string'],
+            'employee'=>['string'],
             'employee_type'=>['required'],
             'designation'=>['required','string'],
         ];

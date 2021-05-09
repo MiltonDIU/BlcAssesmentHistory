@@ -1,4 +1,4 @@
 <?php
 return [
-    'site_title' => 'COE-BLC',
+    'site_title' => 'CoE-BLC',
 ];

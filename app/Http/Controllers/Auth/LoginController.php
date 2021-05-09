@@ -54,6 +54,7 @@ class LoginController extends Controller
         ]);
 
         $validUsername = $this->usernameFormatCheck($request->input('email'));
+
         switch ($validUsername) {
             case 2:
                 $result = $this->employee($request);
@@ -110,7 +111,7 @@ class LoginController extends Controller
                     return true;
             }
         } else {
-            return false;
+            $this->others($request);
         }
     }
 
@@ -174,5 +175,15 @@ class LoginController extends Controller
         } else {
             return false;
         }
+    }
+    protected function credentials(Request $request)
+    {
+        if(is_numeric($request->get('email'))){
+            return ['diu_id'=>$request->get('email'),'password'=>$request->get('password')];
+        }
+        elseif (filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
+            return ['email' => $request->get('email'), 'password'=>$request->get('password')];
+        }
+//        return ['email' => $request->get('email'), 'password'=>$request->get('password')];
     }
 }

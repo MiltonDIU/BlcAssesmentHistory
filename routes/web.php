@@ -32,6 +32,7 @@ Route::get('/', function () {
     return redirect(route('login'));
 
 });
+Auth::routes(['register' => false]);
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));

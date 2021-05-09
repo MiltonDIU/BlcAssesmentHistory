@@ -19,21 +19,21 @@
                 <input type="hidden" name="section_and_section_ids" value="{{$assessment->section_and_section_ids}}">
                 <input type="hidden" name="blc_course_link" value="{{$assessment->blc_course_link}}">
 
-                <div class="form-group">
-                    <label for="faculty_id">{{ trans('cruds.assessment.fields.faculty') }}</label>
-                    <select disabled class="form-control select2 {{ $errors->has('faculty') ? 'is-invalid' : '' }}" name="faculty_id" id="faculty_id">
+{{--                <div class="form-group">--}}
+{{--                    <label for="faculty_id">{{ trans('cruds.assessment.fields.faculty') }}</label>--}}
+{{--                    <select disabled class="form-control select2 {{ $errors->has('faculty') ? 'is-invalid' : '' }}" name="faculty_id" id="faculty_id">--}}
 
-                            @foreach($faculties as $id => $entry)
-                                <option value="{{ $entry['id'] }}" {{ old('faculty_id') == $entry['id'] ? 'selected' : '' }} {{ (old('faculty_id') ? old('faculty_id') : $assessment->faculty_id ?? '') == $entry['id'] ? 'selected' : '' }}>{{ $entry['facultyName'] }}</option>
-                            @endforeach
-                    </select>
-                    @if($errors->has('faculty'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('faculty') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.assessment.fields.faculty_helper') }}</span>
-                </div>
+{{--                            @foreach($faculties as $id => $entry)--}}
+{{--                                <option value="{{ $entry['id'] }}" {{ old('faculty_id') == $entry['id'] ? 'selected' : '' }} {{ (old('faculty_id') ? old('faculty_id') : $assessment->faculty_id ?? '') == $entry['id'] ? 'selected' : '' }}>{{ $entry['facultyName'] }}</option>--}}
+{{--                            @endforeach--}}
+{{--                    </select>--}}
+{{--                    @if($errors->has('faculty'))--}}
+{{--                        <div class="invalid-feedback">--}}
+{{--                            {{ $errors->first('faculty') }}--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
+{{--                    <span class="help-block">{{ trans('cruds.assessment.fields.faculty_helper') }}</span>--}}
+{{--                </div>--}}
 
 
                 <div class="form-group">
@@ -51,23 +51,23 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.assessment.fields.semester_helper') }}</span>
                 </div>
-                <div class="form-group">
-                    <label class="required">{{ trans('cruds.assessment.fields.program') }}</label>
-                    <select disabled class="form-control select2 {{ $errors->has('program') ? 'is-invalid' : '' }}" name="program" id="program" required>
-                        <option value disabled {{ old('program', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+{{--                <div class="form-group">--}}
+{{--                    <label class="required">{{ trans('cruds.assessment.fields.program') }}</label>--}}
+{{--                    <select disabled class="form-control select2 {{ $errors->has('program') ? 'is-invalid' : '' }}" name="program" id="program" required>--}}
+{{--                        <option value disabled {{ old('program', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>--}}
 
-                        @foreach($programs as $key => $program)
-                            <option value="{{ $program['id'] }}" {{ old('program', $assessment->program) === (string) $program['id'] ? 'selected' : '' }}>{{ $program['programName'] ?? ''}}</option>
-                        @endforeach
+{{--                        @foreach($programs as $key => $program)--}}
+{{--                            <option value="{{ $program['id'] }}" {{ old('program', $assessment->program) === (string) $program['id'] ? 'selected' : '' }}>{{ $program['programName'] ?? ''}}</option>--}}
+{{--                        @endforeach--}}
 
-                    </select>
-                    @if($errors->has('program'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('program') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.assessment.fields.program_helper') }}</span>
-                </div>
+{{--                    </select>--}}
+{{--                    @if($errors->has('program'))--}}
+{{--                        <div class="invalid-feedback">--}}
+{{--                            {{ $errors->first('program') }}--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
+{{--                    <span class="help-block">{{ trans('cruds.assessment.fields.program_helper') }}</span>--}}
+{{--                </div>--}}
 {{--                <div class="form-group">--}}
 {{--                    <label>{{ trans('cruds.assessment.fields.erp_course') }}</label>--}}
 {{--                    <select disabled class="form-control {{ $errors->has('erp_course') ? 'is-invalid' : '' }}" name="erp_course" id="erp_course">--}}
@@ -83,6 +83,17 @@
 {{--                    @endif--}}
 {{--                    <span class="help-block">{{ trans('cruds.assessment.fields.erp_course_helper') }}</span>--}}
 {{--                </div>--}}
+
+                <div class="form-group">
+                    <label class="required" for="course_code">{{ trans('cruds.assessment.fields.erp_course') }}</label>
+                    <input disabled class="form-control {{ $errors->has('erp_course_name') ? 'is-invalid' : '' }}" type="text" name="erp_course_name" id="erp_course_name" value="{{$erp_course_name}}" required>
+                    @if($errors->has('erp_course_name'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('erp_course_name') }}
+                        </div>
+                    @endif
+                </div>
+
 
                 <div class="form-group">
                     <label class="required" for="course_code">{{ trans('cruds.assessment.fields.course_code') }}</label>

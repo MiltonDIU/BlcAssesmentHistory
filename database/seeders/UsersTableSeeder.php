@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
                 'verified_at'        => '2021-01-19 07:48:34',
                 'verification_token' => '',
                 'approved'           => 1,
+                'diu_id'           => 1111111111,
             ],
             [
                 'id'             => 2,
@@ -31,6 +32,7 @@ class UsersTableSeeder extends Seeder
                 'verified_at'        => '2021-01-19 07:48:34',
                 'verification_token' => '',
                 'approved'           => 1,
+                'diu_id'           => 222222222,
             ],
         ];
 

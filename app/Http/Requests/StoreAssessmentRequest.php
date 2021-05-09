@@ -21,9 +21,6 @@ class StoreAssessmentRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'program' => [
-                'required',
-            ],
             'semester' => [
                 'required',
             ],

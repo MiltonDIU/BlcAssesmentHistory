@@ -145,8 +145,10 @@ class AssessmentController extends Controller
         $data['teacherid']=Auth::user()->diu_id;
         $erp_course = $request->input('erp_course');
         $erp_course =  explode("_", $erp_course);
-        $data['department'] = $erp_course[4];
 
+        $data['department'] = $erp_course[4];
+        $data['program'] = $erp_course[6];
+        $data['faculty_id'] = $erp_course[8];
         $assessment = Assessment::create($data);
         return redirect()->route('admin.assessments.index');
     }
@@ -198,18 +200,13 @@ $assessment = Assessment::find(decrypt($id));
                 return redirect(route('admin.notAllowed'));
             }
         }
-        $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/faculty-list";
-        $faculties = $this->getApiData($url);
-
         $exam_types = ExamType::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
         $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
+        $erp_course =  explode("_", $assessment->erp_course);
+        $erp_course_name = $erp_course[1];
         $semesters =$this->getApiData($url);
-        $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/department-list";
-        $departments =$this->getApiData($url);
-        $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/program-list";
-        $programs =$this->getApiData($url);
-        $assessment->load('faculty', 'exam_type', 'user');
-        return view('admin.assessments.create-2nd', compact('semesters','departments','programs','faculties', 'exam_types', 'assessment'));
+        $assessment->load('exam_type', 'user');
+        return view('admin.assessments.create-2nd', compact('erp_course_name','semesters', 'exam_types', 'assessment'));
     }
 
     public function update(UpdateAssessmentRequest $request, Assessment $assessment)
@@ -273,7 +270,7 @@ $assessment = Assessment::find(decrypt($id));
         }
         if ($request->ajax()) {
             $semester= $request->input('semester');
-            $url= 'http://apps.diu.edu.bd:8021/rest/v1/teacher/course-list/semester/'.$semester.'/teacher/'.$employee_id;
+            $url= 'http://apps.diu.edu.bd:8686/externals/rest/smis/v3/teacher/course-list/semester/'.$semester.'/teacher/'.$employee_id;
             $courses  = $this->getApiData($url);
             $data = view('admin.assessments.erp_course_list',compact('courses','semester'))->render();
             return response()->json(['options'=>$data]);

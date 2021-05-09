@@ -32,8 +32,8 @@ class Profile extends Model implements HasMedia
         'Others' => 'Others',
     ];
     public const PROFILE_TYPE = [
-        '1' => 'Part-time',
-        '2' => 'Full-time',
+        '1' => 'Full-time',
+        '2' => 'Part-time',
         '3' => 'Contractual',
     ];
 

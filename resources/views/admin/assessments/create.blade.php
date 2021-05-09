@@ -80,26 +80,26 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.assessment.fields.erp_course_helper') }}</span>
                 </div>
-                <div class="form-group">
-                    <label class="required">{{ trans('cruds.assessment.fields.program') }}</label>
-                    <select class="form-control {{ $errors->has('program') ? 'is-invalid' : '' }}" name="program" id="program" required>
-                        <option value disabled {{ old('program', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+{{--                <div class="form-group">--}}
+{{--                    <label class="required">{{ trans('cruds.assessment.fields.program') }}</label>--}}
+{{--                    <select class="form-control {{ $errors->has('program') ? 'is-invalid' : '' }}" name="program" id="program" required>--}}
+{{--                        <option value disabled {{ old('program', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>--}}
 
 
-                        @foreach($programs as $key => $program)
-                            <option value="{{ $program['id'] }}">{{ $program['programName'] ?? ''}}</option>
-                        @endforeach
+{{--                        @foreach($programs as $key => $program)--}}
+{{--                            <option value="{{ $program['id'] }}">{{ $program['programName'] ?? ''}}</option>--}}
+{{--                        @endforeach--}}
 
 
 
-                    </select>
-                    @if($errors->has('program'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('program') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.assessment.fields.program_helper') }}</span>
-                </div>
+{{--                    </select>--}}
+{{--                    @if($errors->has('program'))--}}
+{{--                        <div class="invalid-feedback">--}}
+{{--                            {{ $errors->first('program') }}--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
+{{--                    <span class="help-block">{{ trans('cruds.assessment.fields.program_helper') }}</span>--}}
+{{--                </div>--}}
 
 {{--                --}}
 {{--                <div class="form-group">--}}
@@ -207,20 +207,20 @@
                 }
             });
         });
-        $("select[name='erp_course']").change(function(){
-            var erp_course = $(this).val();
-            var token = $("input[name='_token']").val();
-            $.ajax({
-                url: "<?php echo route('admin.assessments.erp_program_list') ?>",
-                method: 'POST',
-                data: {erp_course:erp_course, _token:token},
-                success: function(data) {
-                    console.log(data);
-                    $("select[name='program']").html('');
-                    $("select[name='program']").html(data.options);
-                }
-            });
-        });
+        {{--$("select[name='erp_course']").change(function(){--}}
+        {{--    var erp_course = $(this).val();--}}
+        {{--    var token = $("input[name='_token']").val();--}}
+        {{--    $.ajax({--}}
+        {{--        url: "<?php echo route('admin.assessments.erp_program_list') ?>",--}}
+        {{--        method: 'POST',--}}
+        {{--        data: {erp_course:erp_course, _token:token},--}}
+        {{--        success: function(data) {--}}
+        {{--            console.log(data);--}}
+        {{--            $("select[name='program']").html('');--}}
+        {{--            $("select[name='program']").html(data.options);--}}
+        {{--        }--}}
+        {{--    });--}}
+        {{--});--}}
 
     </script>
 @endsection
