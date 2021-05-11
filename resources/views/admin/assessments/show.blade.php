@@ -112,7 +112,7 @@
                                 {{ trans('cruds.assessment.fields.blc_course_link') }}
                             </th>
                             <td>
-                                {{ $assessment->blc_course_link }}
+                                <a href="{{ $assessment->blc_course_link }}" target="_blank">{{ $assessment->blc_course_link }}</a>
                             </td>
                         </tr>
                         <tr>
@@ -120,7 +120,7 @@
                                 {{ trans('cruds.assessment.fields.assessment_question_link') }}
                             </th>
                             <td>
-                                {{ $assessment->assessment_question_link }}
+                               <a href="{{ $assessment->assessment_question_link }}" target="_blank"> {{ $assessment->assessment_question_link }}</a>
                             </td>
                         </tr>
                         <tr>
@@ -128,7 +128,7 @@
                                 {{ trans('cruds.assessment.fields.assessment_link') }}
                             </th>
                             <td>
-                                {{ $assessment->assessment_link }}
+                                <a href="{{ $assessment->assessment_link }}" target="_blank">{{ $assessment->assessment_link }}</a>
                             </td>
                         </tr>
                         <tr>

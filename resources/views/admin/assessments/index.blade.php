@@ -66,6 +66,9 @@
                     <th>
                         {{ trans('cruds.assessment.fields.assessment_link') }}
                     </th>
+                    <th>
+                        {{ trans('cruds.assessment.fields.erp_course') }}
+                    </th>
 
                     <th>
                         &nbsp;
@@ -130,6 +133,9 @@
 {{--                    </td>--}}
 {{--                    <td>--}}
 {{--                    </td>--}}
+                    <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
@@ -214,9 +220,31 @@
                     { data: 'course_code', name: 'course_code' },
                     { data: 'course_name', name: 'course_name' },
                     { data: 'section_and_section_ids', name: 'section_and_section_ids' },
-                    { data: 'blc_course_link', name: 'blc_course_link' },
-                    { data: 'assessment_question_link', name: 'assessment_question_link' },
-                    { data: 'assessment_link', name: 'assessment_link' },
+                    // { data: 'blc_course_link', name: 'blc_course_link' },
+                    { "data": "blc_course_link",
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<a target='_blank' href='"+oData.blc_course_link+"'>"+oData.blc_course_link+"</a>");
+                        }
+                    },
+                    // { data: 'assessment_question_link', name: 'assessment_question_link' },
+                    { "data": "assessment_question_link",
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<a target='_blank' href='"+oData.assessment_question_link+"'>"+oData.assessment_question_link+"</a>");
+                        }
+                    },
+                    // { data: 'assessment_link', name: 'assessment_link' },
+                    { "data": "assessment_link",
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<a target='_blank' href='"+oData.assessment_link+"'>"+oData.assessment_link+"</a>");
+                        }
+                    },
+
+                    // { data: 'erp_course', name: 'erp_course' },
+                    { "data": "erp_course",
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<span>"+oData.erp_course.split("_"-2)+"</span>");
+                        }
+                    },
                     { data: 'actions', name: '{{ trans('global.actions') }}' }
                 ],
                 orderCellsTop: true,
