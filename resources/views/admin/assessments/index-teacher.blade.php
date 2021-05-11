@@ -27,7 +27,7 @@
                         </th>
 
                         <th>
-                            {{ trans('cruds.assessment.fields.course_name') }}
+                           ERP Course Name
                         </th>
                         <th>
                             {{ trans('cruds.assessment.fields.department') }}
@@ -62,7 +62,10 @@
                                 {{ $assessment->exam_type->title ?? '' }}
                             </td>
                             <td>
-                                {{ $assessment->course_name ?? '' }}
+                                @php
+                                    $erp_course = explode("_", $assessment->erp_course);
+                                @endphp
+                                {{ $erp_course[1] ?? '' }}
                             </td>
                             <td>
                                 @foreach($departments  as $department)
@@ -83,13 +86,19 @@
                                 {{ $assessment->course_name ?? '' }}
                             </td>
                             <td>
-                                {{ $assessment->blc_course_link ?? '' }}
+                                <a href="{{ $assessment->blc_course_link ?? '' }}" target="_blank">
+                                    {{ Illuminate\Support\Str::limit($assessment->blc_course_link, 15) }}
+                                </a>
                             </td>
                             <td>
-                                {{ $assessment->assessment_question_link ?? '' }}
+                                <a href="{{ $assessment->assessment_question_link ?? '' }}" target="_blank">
+                                    {{ Illuminate\Support\Str::limit($assessment->assessment_question_link, 15) }}
+                                </a>
                             </td>
                             <td>
-                                {{ $assessment->assessment_link ?? '' }}
+                                <a href="{{ $assessment->assessment_link ?? '' }}" target="_blank">
+                                    {{ Illuminate\Support\Str::limit($assessment->assessment_link, 15) }}
+                                </a>
                             </td>
                             <td>
 

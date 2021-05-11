@@ -662,7 +662,7 @@
 {{--                    </div>--}}
                     <div class="card">
                         <div class="card-header">Semester Wise
-                            <div class="card-header-actions"><small class="text-muted" style="background: #00FF00; color:black;padding: 10px">Mid Term</small><small class="text-muted" style="color:black;padding: 10px; background: #006400">Final</small></div>
+                            <div class="card-header-actions"><small class="text-muted" style="background: #00FF00; color:black;padding: 10px">Mid Term</small><small class="text-muted" style="color:black;padding: 10px; background: #2eb85c">Final</small></div>
                         </div>
                         <div class="card-body">
                             <div class="c-chart-wrapper">
