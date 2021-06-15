@@ -1,111 +1,165 @@
+<div class="col-md-12 table-responsive">
+    <h3>ERP Data</h3>
+    <table class=" table table-bordered table-striped table-hover datatable datatable-Semester">
+        <thead>
+        <tr>
+            <th width="10">
 
-        <div class="col-md-6 table-responsive">
-            <h3>ERP Data</h3>
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Semester">
-                <thead>
-                <tr>
-                    <th width="10">
+            </th>
+            <th>
+                Course Title (Course Code)
+            </th>
+            <th>Department Name</th>
+            <th>Section and ID</th>
+            <th>Credit</th>
+            <th>Number of Student</th>
+            @foreach($examTypes as $examType)
+                <th>{{$examType->title}}</th>
+            @endforeach
+        </tr>
+        </thead>
+        <tbody>
+        @if($courses)
+            @foreach($courses as $key => $course)
+                <tr data-entry-id="{{ $course['courseSectionId'] }}">
+                    <td>
+                    </td>
+                    <td>
+                        {{ $course['courseTitle'] ?? '' }}
+                        ({{ $course['courseCode'] ?? '' }})
+                    </td>
+                    <td>
+                        {{ $course['departmentName'] ?? '' }}
+                    </td>
+                    <td>
+                        {{ $course['sectionName'] ?? '' }}-{{ $course['courseSectionId'] ?? '' }}
+                    </td>
+                    <td>
+                        {{ $course['totalCredit'] ?? '' }}
+                    </td>
+                    <td>
+                        {{ $course['numberOfStudent'] ?? '' }}
+                    </td>
 
-                    </th>
-                    <th>
-                        Course Title (Course Code)
-                    </th>
-                    <th>Department Name</th>
-                    <th>Section and ID</th>
-                    <th>Credit</th>
-                    <th>Number of Student</th>
+                    @if (sizeof($course[0]) > 0)
+
+                        @foreach ($examTypes as $key => $exam)
+{{--=={{$exam->id}} ====={{$course[0][$key]}}//--}}
+                        <td>
+                            @if(1==$course[0][$key])
+
+                                {{"Done"}}
+
+                            @elseif(2==$course[0][$key])
+
+                                {{"Done"}}
+
+                            @elseif(3==$course[0][$key])
+
+                                {{"Done"}}
+
+                            @elseif(5==$course[0][$key])
+                                {{"Done"}}
+                            @endif
+                        </td>
+
+
+
+
+
+{{--                                    @if($exam->id==$course[0][$key])--}}
+{{--                                        {{$exam->title.":Done"}}--}}
+{{--                                    @elseif($exam->id==$course[0][$key])--}}
+{{--                                        {{$exam->title.":Done"}}--}}
+{{--                                    @elseif($exam->id==$course[0][$key])--}}
+{{--                                        {{$exam->title.":Done"}}--}}
+{{--                                    @elseif($exam->id==$course[0][$key])--}}
+{{--                                        {{$exam->title.":Done"}}--}}
+{{--                                    @endif--}}
+
+
+
+
+                        @endforeach
+                        {{--                        @endforeach--}}
+                    @else
+                        @foreach($examTypes as $exam)
+                            <td>
+                                {{"No"}}
+                            </td>
+                        @endforeach
+                    @endif
+
                 </tr>
-                </thead>
-                <tbody>
-                @if($courses)
-                    @foreach($courses as $key => $course)
-                        <tr data-entry-id="{{ $course['courseSectionId'] }}">
-                            <td>
-                            </td>
-                            <td>
-                                {{ $course['courseTitle'] ?? '' }}
-                                ({{ $course['courseCode'] ?? '' }})
-                            </td>
-                            <td>
-                                {{ $course['departmentName'] ?? '' }}
-                            </td>   <td>
-                                {{ $course['sectionName'] ?? '' }}-{{ $course['courseSectionId'] ?? '' }}
-                            </td>
-                            <td>
-                                {{ $course['totalCredit'] ?? '' }}
-                            </td>
-                            <td>
-                                {{ $course['numberOfStudent'] ?? '' }}
-                            </td>
-                             </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="6">No Courses for this semester</td>
-                    </tr>
-                @endif
-                </tbody>
-            </table>
+            @endforeach
+            @else
+            <tr>
+                <td colspan="6">No Courses for this semester</td>
+            </tr>
+        @endif
+        </tbody>
+    </table>
 
-        </div>
-        <div class="col-md-6 table-responsive">
-            <h3>Internal Data</h3>
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Semester">
-                <thead>
-                <tr>
-                    <th width="10">
+</div>
 
-                    </th>
-                    <th>
-                        Course Title (Course Code)
-                    </th>
-                    <th>Exam Type</th>
+{{--        <div class="col-md-6 table-responsive">--}}
+{{--            <h3>Internal Data</h3>--}}
+{{--            <table class=" table table-bordered table-striped table-hover datatable datatable-Semester">--}}
+{{--                <thead>--}}
+{{--                <tr>--}}
+{{--                    <th width="10">--}}
 
-                    <th>Semester</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                @if($assessments)
-                    @foreach($assessments as $key => $assessment)
-                        <tr>
-                            <td>
-                            </td>
-                            <td>
-                               {{$assessment->course_name}}
-                               ({{$assessment->course_code}})
-                            </td>
-                            <td>
-                                {{ $assessment->exam_type->title ?? '' }}
-                            </td>
-                            <td>
-                                @foreach($semesters  as $semester)
-                                    @if($semester['id']==$assessment->semester)
-                                        {{$semester['semesterName']}}-{{$semester['semesterYear']}}
-                                    @endif
-                                @endforeach
+{{--                    </th>--}}
+{{--                    <th>--}}
+{{--                        Course Title (Course Code)--}}
+{{--                    </th>--}}
+{{--                    <th>Exam Type</th>--}}
 
-                            </td>
-                            <td>
-                                @if(\App\Models\Assessment::checkExamType($assessment->course_code,$assessment->user_id,$assessment->semester)<2)
-                                    @foreach($examTypes as $exam)
-                                        @if($assessment->exam_type->id!=$exam->id)
-                                            <a href="{{route('admin.assessments.editFinal',[$assessment->id])}}" class="btn btn-xs btn-info">
-                                                {{$exam->title}} Assessment
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                @else
-                                    <span class="btn btn-xs btn-info" disabled="disabled"> {{"Done"}}</span>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="6">No Courses for this semester</td>
-                    </tr>
-                @endif
-                </tbody>
-            </table>
-        </div>
+{{--                    <th>Semester</th>--}}
+{{--                    <th>Status</th>--}}
+{{--                </tr>--}}
+{{--                </thead>--}}
+{{--                <tbody>--}}
+{{--                @if($assessments)--}}
+{{--                    @foreach($assessments as $key => $assessment)--}}
+{{--                        <tr>--}}
+{{--                            <td>--}}
+{{--                            </td>--}}
+{{--                            <td>--}}
+{{--                               {{$assessment->course_name}}--}}
+{{--                               ({{$assessment->course_code}})--}}
+{{--                            </td>--}}
+{{--                            <td>--}}
+{{--                                {{ $assessment->exam_type->title ?? '' }}--}}
+{{--                            </td>--}}
+{{--                            <td>--}}
+{{--                                @foreach($semesters  as $semester)--}}
+{{--                                    @if($semester['id']==$assessment->semester)--}}
+{{--                                        {{$semester['semesterName']}}-{{$semester['semesterYear']}}--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
+
+{{--                            </td>--}}
+{{--                            <td>--}}
+{{--                                @if(\App\Models\Assessment::checkExamType($assessment->course_code,$assessment->user_id,$assessment->semester)<2)--}}
+{{--                                    @foreach($examTypes as $exam)--}}
+{{--                                        @if($assessment->exam_type->id!=$exam->id)--}}
+{{--                                            <a href="{{route('admin.assessments.editFinal',[$assessment->id])}}" class="btn btn-xs btn-info">--}}
+{{--                                                {{$exam->title}} Assessment--}}
+{{--                                            </a>--}}
+{{--                                        @endif--}}
+{{--                                    @endforeach--}}
+{{--                                @else--}}
+{{--                                    <span class="btn btn-xs btn-info" disabled="disabled"> {{"Done"}}</span>--}}
+{{--                                @endif--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+{{--                    @endforeach--}}
+{{--                @else--}}
+{{--                    <tr>--}}
+{{--                        <td colspan="6">No Courses for this semester</td>--}}
+{{--                    </tr>--}}
+{{--                @endif--}}
+{{--                </tbody>--}}
+{{--            </table>--}}
+{{--        </div>--}}

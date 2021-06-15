@@ -83,7 +83,7 @@
 
                             </td>
                             <td>
-                                {{ $assessment->course_name ?? '' }}
+                                {{ $assessment->course_code ?? '' }}
                             </td>
                             <td>
                                 <a href="{{ $assessment->blc_course_link ?? '' }}" target="_blank">

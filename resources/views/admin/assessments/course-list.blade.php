@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-           My Course List
+            My Course List
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -37,6 +37,107 @@
 
                 <div class="row" id="course_list">
                 </div>
+{{--                <table class=" table table-bordered table-striped table-hover datatable datatable-Semester">--}}
+{{--                    <thead>--}}
+{{--                    <tr>--}}
+{{--                        <th width="10">--}}
+
+{{--                        </th>--}}
+{{--                        <th>--}}
+{{--                            Course Title (Course Code)--}}
+{{--                        </th>--}}
+{{--                        <th>Department Name</th>--}}
+{{--                        <th>Section and ID</th>--}}
+{{--                        <th>Credit</th>--}}
+{{--                        <th>Number of Student</th>--}}
+{{--                        @foreach($examTypes as $examType)--}}
+{{--                            <th>{{$examType->title}}</th>--}}
+{{--                        @endforeach--}}
+{{--                    </tr>--}}
+{{--                    </thead>--}}
+{{--                    <tbody>--}}
+{{--                    @if($courses)--}}
+{{--                        @foreach($courses as $key => $course)--}}
+{{--                            <tr data-entry-id="{{ $course['courseSectionId'] }}">--}}
+{{--                                <td>--}}
+{{--                                </td>--}}
+{{--                                <td>--}}
+{{--                                    {{ $course['courseTitle'] ?? '' }}--}}
+{{--                                    ({{ $course['courseCode'] ?? '' }})--}}
+{{--                                </td>--}}
+{{--                                <td>--}}
+{{--                                    {{ $course['departmentName'] ?? '' }}--}}
+{{--                                </td>--}}
+{{--                                <td>--}}
+{{--                                    {{ $course['sectionName'] ?? '' }}-{{ $course['courseSectionId'] ?? '' }}--}}
+{{--                                </td>--}}
+{{--                                <td>--}}
+{{--                                    {{ $course['totalCredit'] ?? '' }}--}}
+{{--                                </td>--}}
+{{--                                <td>--}}
+{{--                                    {{ $course['numberOfStudent'] ?? '' }}--}}
+{{--                                </td>--}}
+
+{{--                                @if (sizeof($course[0]) > 0)--}}
+
+{{--                                    @foreach ($examTypes as $key => $exam)--}}
+{{--                                        =={{$exam->id}} ====={{$course[0][$key]}}//--}}
+{{--                                        <td>--}}
+{{--                                            @if(1==$course[0][$key])--}}
+
+{{--                                                {{"Done"}}{{$course[0][$key]}}--}}
+
+{{--                                            @elseif(2==$course[0][$key])--}}
+
+{{--                                                {{"Done"}}{{$course[0][$key]}}--}}
+
+{{--                                            @elseif(3==$course[0][$key])--}}
+
+{{--                                                {{"Done"}}{{$course[0][$key]}}--}}
+
+{{--                                            @elseif(5==$course[0][$key])--}}
+
+{{--                                                {{"Done"}}{{$course[0][$key]}}--}}
+
+{{--                                            @endif--}}
+{{--                                        </td>--}}
+
+
+
+
+
+{{--                                        --}}{{--                                    @if($exam->id==$course[0][$key])--}}
+{{--                                        --}}{{--                                        {{$exam->title.":Done"}}--}}
+{{--                                        --}}{{--                                    @elseif($exam->id==$course[0][$key])--}}
+{{--                                        --}}{{--                                        {{$exam->title.":Done"}}--}}
+{{--                                        --}}{{--                                    @elseif($exam->id==$course[0][$key])--}}
+{{--                                        --}}{{--                                        {{$exam->title.":Done"}}--}}
+{{--                                        --}}{{--                                    @elseif($exam->id==$course[0][$key])--}}
+{{--                                        --}}{{--                                        {{$exam->title.":Done"}}--}}
+{{--                                        --}}{{--                                    @endif--}}
+
+
+
+
+{{--                                    @endforeach--}}
+{{--                                    --}}{{--                        @endforeach--}}
+{{--                                @else--}}
+{{--                                    @foreach($examTypes as $exam)--}}
+{{--                                        <td>--}}
+{{--                                            {{"No"}}--}}
+{{--                                        </td>--}}
+{{--                                    @endforeach--}}
+{{--                                @endif--}}
+
+{{--                            </tr>--}}
+{{--                        @endforeach--}}
+{{--                    @else--}}
+{{--                        <tr>--}}
+{{--                            <td colspan="6">No Courses for this semester</td>--}}
+{{--                        </tr>--}}
+{{--                    @endif--}}
+{{--                    </tbody>--}}
+{{--                </table>--}}
 
             </div>
         </div>
@@ -55,11 +156,9 @@
                 order: [[ 1, 'desc' ]],
                 pageLength: 2,
             });
-
         })
     </script>
     <script type="text/javascript">
-
         $("select[name='semester_id']").change(function(){
             var semester_id = $(this).val();
             var token = $("input[name='_token']").val();
@@ -75,7 +174,6 @@
                 }
             });
         });
-
         $(document).ready(function(){
             $("#employee_id").change(function(){
                 var semester_id = $("#semester_id").val();
@@ -95,7 +193,5 @@
                 }
             });
         });
-
-
     </script>
 @endsection

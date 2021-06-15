@@ -106,7 +106,7 @@ class AssessmentController extends Controller
             return view('admin.assessments.index', compact('faculties', 'exam_types', 'users'));
 
         } else {
-            $assessments = Assessment::with(['faculty', 'exam_type', 'user'])->where('user_id',Auth::id())->get();
+            $assessments = Assessment::with(['faculty', 'exam_type', 'user'])->where('course_code',"CSE 212 (MHK 203)")->where('user_id',Auth::id())->get();
             $examTypes = ExamType::where('is_active',1)->get();
             $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
             $semesters =$this->getApiData($url);
@@ -252,11 +252,63 @@ $assessment = Assessment::find(decrypt($id));
             $semesters =$this->getApiData($url);
             $assessments = Assessment::where('semester',$semester_id)->where('teacherid',$employee_id)->get();
             $examTypes = ExamType::where('is_active',1)->get();
+            foreach ($courses as $key => $cours){
+                $data = array();
+                foreach ($assessments as $assessment){
+                    $result = explode('_',$assessment->erp_course);
+                    if (($cours['courseCode'] == $result[0]) && ($cours['sectionName'] == $result[3]) ){
+                        foreach ($examTypes as $examType){
+
+                            if ($assessment->exam_type_id==$examType->id){
+                                array_push($data,$assessment->exam_type_id);
+                            }
+                        }
+                    }
+
+                }
+                for ($i=sizeof($data); sizeof($examTypes)>$i;$i++){
+                    array_push($data,0);
+                }
+                array_push($courses[$key],$data);
+            }
+//dd($courses);
+
             $data = view('admin.assessments.course',compact('examTypes','semesters','assessments','courses','semester_id'))->render();
             return response()->json(['options'=>$data]);
         }else{
+//            $url= 'http://apps.diu.edu.bd:8021/rest/v1/teacher/course-list/semester/'.'203'.'/teacher/'.'721500126';
+//            $courses  = $this->getApiData($url);
+//            $assessments = Assessment::where('semester','203')->where('teacherid','721500126')->get();
+//            $examTypes = ExamType::where('is_active',1)->get();
+//
+//            foreach ($courses as $key => $cours){
+//                $data = array();
+//                foreach ($assessments as $assessment){
+//                    $result = explode('_',$assessment->erp_course);
+//                    echo $cours['courseCode']."====". $result[0]."//////////".$cours['sectionName']."==". $result[3]."<br>";
+//                    if (($cours['courseCode'] == $result[0]) && ($cours['sectionName'] == $result[3]) ){
+//                        foreach ($examTypes as $examType){
+//
+////                            echo $assessment->exam_type_id.'========'.$examType->id."=======$assessment->id<br>";
+//                            if ($assessment->exam_type_id==$examType->id){
+//                                array_push($data,$assessment->exam_type_id);
+//                            }
+//                        }
+//                    }
+//
+//                }
+//                for ($i=sizeof($data); sizeof($examTypes)>$i;$i++){
+//                    array_push($data,0);
+//                }
+//                array_push($courses[$key],$data);
+//            }
+//
+
+
             $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
             $semesters =$this->getApiData($url);
+//            return view('admin.assessments.course-list',compact('examTypes','semesters','assessments','courses'));
+
             return view('admin.assessments.course-list', compact('semesters'));
         }
     }
