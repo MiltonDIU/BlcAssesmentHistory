@@ -39,14 +39,17 @@ class StoreAssessmentRequest extends FormRequest
             'blc_course_link' => [
                 'string',
                 'required',
+                'url'
             ],
             'assessment_question_link' => [
                 'string',
                 'required',
+                'url'
             ],
             'assessment_link' => [
                 'string',
                 'required',
+                'url'
             ],
         ];
     }

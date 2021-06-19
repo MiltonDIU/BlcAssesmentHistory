@@ -139,7 +139,9 @@
                     <label class="required" for="exam_type_id">{{ trans('cruds.assessment.fields.exam_type') }}</label>
                     <select class="form-control select2 {{ $errors->has('exam_type') ? 'is-invalid' : '' }}" name="exam_type_id" id="exam_type_id" required>
                         @foreach($exam_types as $id => $entry)
+{{--                            <option value="{{ $id }}" {{ (old('exam_type_id') ? old('exam_type_id') : $assessment->exam_type->id ?? '') != $id ? 'selected' : '' }}>{{ $entry }}</option>--}}
                             <option value="{{ $id }}" {{ (old('exam_type_id') ? old('exam_type_id') : $assessment->exam_type->id ?? '') != $id ? 'selected' : '' }}>{{ $entry }}</option>
+
                         @endforeach
                     </select>
                     @if($errors->has('exam_type'))

@@ -53,7 +53,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($assessments as $key => $assessment)
+                    @foreach($assessments as $key => $assessment1)
+@php
+$i=0;
+@endphp
+                    @foreach($assessment1 as $key => $assessment)
+                        @php
+                            $i++;
+                        @endphp
                         <tr data-entry-id="{{ $assessment->id }}">
                             <td>
 
@@ -74,6 +81,7 @@
                                     @endif
                                 @endforeach
                             </td>
+
                             <td>
                                 @foreach($semesters  as $semester)
                                     @if($semester['id']==$assessment->semester)
@@ -137,6 +145,7 @@
                             </td>
 
                         </tr>
+                        @endforeach
                     @endforeach
                     </tbody>
                 </table>

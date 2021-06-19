@@ -28,6 +28,9 @@
                         Teacher ID
                     </th>
                     <th>
+                        {{ trans('cruds.assessment.fields.semester') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.assessment.fields.faculty') }}
                     </th>
                     <th>
@@ -39,33 +42,42 @@
                     <th>
                         {{ trans('cruds.assessment.fields.program') }}
                     </th>
-                    <th>
-                        {{ trans('cruds.assessment.fields.semester') }}
-                    </th>
+
 {{--                    <th>--}}
 {{--                        {{ trans('cruds.assessment.fields.user') }}--}}
 {{--                    </th>--}}
 {{--                    <th>--}}
 {{--                        {{ trans('cruds.user.fields.email') }}--}}
 {{--                    </th>--}}
-                    <th>
-                        {{ trans('cruds.assessment.fields.course_code') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.assessment.fields.course_name') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.assessment.fields.section_and_section_ids') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.assessment.fields.blc_course_link') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.assessment.fields.assessment_question_link') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.assessment.fields.assessment_link') }}
-                    </th>
+
+
+
+                    <th>BLC Course Info</th>
+{{--                    --}}
+{{--                    <th>--}}
+{{--                        {{ trans('cruds.assessment.fields.course_code') }}--}}
+{{--                    </th>--}}
+{{--                    <th>--}}
+{{--                        {{ trans('cruds.assessment.fields.course_name') }}--}}
+{{--                    </th>--}}
+{{--                    <th>--}}
+{{--                        {{ trans('cruds.assessment.fields.section_and_section_ids') }}--}}
+{{--                    </th>--}}
+{{--                    --}}
+
+
+
+{{--                    <th>--}}
+{{--                        {{ trans('cruds.assessment.fields.blc_course_link') }}--}}
+{{--                    </th>--}}
+{{--                    <th>--}}
+{{--                        {{ trans('cruds.assessment.fields.assessment_question_link') }}--}}
+{{--                    </th>--}}
+{{--                    <th>--}}
+{{--                        {{ trans('cruds.assessment.fields.assessment_link') }}--}}
+{{--                    </th>--}}
+
+                    <th>BLC Link</th>
                     <th>
                         {{ trans('cruds.assessment.fields.erp_course') }}
                     </th>
@@ -79,6 +91,14 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
+                        <select class="search" strict="true">
+                            <option value>{{ trans('global.all') }}</option>
+                            @foreach($as->semesterList() as $key => $item)
+                                <option value="{{ $item['id'] }}">{{ $item['semesterName'].'-'.$item['semesterYear'] }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td>
                         <select class="search">
@@ -115,14 +135,7 @@
                             @endforeach
                         </select>
                     </td>
-                    <td>
-                        <select class="search" strict="true">
-                            <option value>{{ trans('global.all') }}</option>
-                            @foreach($as->semesterList() as $key => $item)
-                                <option value="{{ $item['id'] }}">{{ $item['semesterName'].'-'.$item['semesterYear'] }}</option>
-                            @endforeach
-                        </select>
-                    </td>
+
 {{--                    <td>--}}
 {{--                        <select class="search">--}}
 {{--                            <option value>{{ trans('global.all') }}</option>--}}
@@ -136,21 +149,21 @@
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
+{{--                    <td>--}}
+{{--                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">--}}
+{{--                    </td>--}}
+{{--                    <td>--}}
+{{--                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">--}}
+{{--                    </td>--}}
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
-                    <td>
-                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                    </td>
+{{--                    <td>--}}
+{{--                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">--}}
+{{--                    </td>--}}
+{{--                    <td>--}}
+{{--                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">--}}
+{{--                    </td>--}}
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
@@ -210,34 +223,58 @@
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'teacherid', name: 'teacherid' },
-                    { data: 'faculty_id', name: 'faculty_id' },
-                    { data: 'exam_type_title', name: 'exam_type.title' },
-                    { data: 'department', name: 'department' },
-                    { data: 'program', name: 'program' },
                     { data: 'semester', name: 'semester' },
+                    { data: 'faculty_id', name: 'faculty_id' },
+                    { data: 'exam_type_title', name: 'exam_type.title'},
+                    { data: 'department', name: 'department'},
+                    { data: 'program', name: 'program'},
+
                     // { data: 'user_name', name: 'user.name' },
                     // { data: 'user.email', name: 'user.email' },
-                    { data: 'course_code', name: 'course_code' },
-                    { data: 'course_name', name: 'course_name' },
-                    { data: 'section_and_section_ids', name: 'section_and_section_ids' },
+
+
+
+
+
+
+                    //
+                    // { data: 'course_code', name: 'course_code' },
+                    // { data: 'course_name', name: 'course_name' },
+                    // { data: 'section_and_section_ids', name: 'section_and_section_ids' },
+                    //
+
+
+                    { "data": "course_name",
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+
+                           // $(nTd).html("<a target='_blank' href='"+oData.blc_course_link+"'>"+"Course Link"+"</a>");
+                            $(nTd).html("<span>"+oData.course_code+": "+oData.course_name+"<br> Section:"+oData.section_and_section_ids+"</span>");
+                        }
+                    },
+
+
+
+
                     // { data: 'blc_course_link', name: 'blc_course_link' },
                     { "data": "blc_course_link",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html("<a target='_blank' href='"+oData.blc_course_link+"'>"+oData.blc_course_link+"</a>");
+                            $(nTd).html("<a target='_blank' href='"+oData.blc_course_link+"'>"+"Course"+"</a><br>"+"<a target='_blank' href='"+oData.assessment_question_link+"'>"+"Assessment Question"+"</a><br>"+"<a target='_blank' href='"+oData.assessment_link+"'>"+"Assessment"+"</a>");
+                            // $(nTd).html("<a target='_blank' href='"+oData.blc_course_link+"'>"+"Course Link"+"</a>");
+                            // $(nTd).html("<a target='_blank' href='"+oData.blc_course_link+"'>"+"Course Link"+"</a>");
                         }
                     },
                     // { data: 'assessment_question_link', name: 'assessment_question_link' },
-                    { "data": "assessment_question_link",
-                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html("<a target='_blank' href='"+oData.assessment_question_link+"'>"+oData.assessment_question_link+"</a>");
-                        }
-                    },
+                    // { "data": "assessment_question_link",
+                    //     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                    //         $(nTd).html("<a target='_blank' href='"+oData.assessment_question_link+"'>"+"Assessment Question Link"+"</a>");
+                    //     }
+                    // },
                     // { data: 'assessment_link', name: 'assessment_link' },
-                    { "data": "assessment_link",
-                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html("<a target='_blank' href='"+oData.assessment_link+"'>"+oData.assessment_link+"</a>");
-                        }
-                    },
+                    // { "data": "assessment_link",
+                    //     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                    //         $(nTd).html("<a target='_blank' href='"+oData.assessment_link+"'>"+"Assessment Link"+"</a>");
+                    //     }
+                    // },
 
                     // { data: 'erp_course', name: 'erp_course' },
                     { "data": "erp_course",
@@ -259,6 +296,7 @@
 
             let visibleColumnsIndexes = null;
             $('.datatable thead').on('input', '.search', function () {
+
                 let strict = $(this).attr('strict') || false
                 let value = strict && this.value ? "^" + this.value + "$" : this.value
 

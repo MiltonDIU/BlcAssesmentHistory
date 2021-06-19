@@ -44,4 +44,9 @@ class ExamType extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    public static function totalExamType(){
+        $examType = ExamType::where('is_active','1')->get();
+        return count($examType);
+    }
 }

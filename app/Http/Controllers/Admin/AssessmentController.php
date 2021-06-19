@@ -106,7 +106,8 @@ class AssessmentController extends Controller
             return view('admin.assessments.index', compact('faculties', 'exam_types', 'users'));
 
         } else {
-            $assessments = Assessment::with(['faculty', 'exam_type', 'user'])->where('course_code',"CSE 212 (MHK 203)")->where('user_id',Auth::id())->get();
+            $assessments = Assessment::with(['faculty', 'exam_type', 'user'])->where('user_id',Auth::id())->orderBy('semester','desc')->get()->groupBy('semester');
+
             $examTypes = ExamType::where('is_active',1)->get();
             $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
             $semesters =$this->getApiData($url);
@@ -114,8 +115,6 @@ class AssessmentController extends Controller
             $departments =$this->getApiData($url);
 //            $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/program-list";
 //            $programs =$this->getApiData($url);
-
-
             return view('admin.assessments.index-teacher', compact('semesters','departments','assessments','examTypes'));
         }
     }
@@ -150,15 +149,16 @@ class AssessmentController extends Controller
         $data['program'] = $erp_course[6];
         $data['faculty_id'] = $erp_course[8];
         $assessment = Assessment::create($data);
-        return redirect()->route('admin.assessments.index');
+        return redirect()->route('admin.assessments.index')->with('message','Your assessment successfully stored in system');
     }
     public function finalSubmit(StoreAssessmentRequest $request)
     {
         $data = $request->all();
+        dd($data);
         $data['user_id']=Auth::id();
         $data['teacherid']=Auth::user()->diu_id;
         $assessment = Assessment::create($data);
-        return redirect()->route('admin.assessments.index');
+        return redirect()->route('admin.assessments.index')->with('message','Your assessment successfully stored in system');
     }
 
     public function edit($id)
@@ -200,7 +200,7 @@ $assessment = Assessment::find(decrypt($id));
                 return redirect(route('admin.notAllowed'));
             }
         }
-        $exam_types = ExamType::all()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $exam_types = ExamType::where('is_active','1')->get()->pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
         $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
         $erp_course =  explode("_", $assessment->erp_course);
         $erp_course_name = $erp_course[1];
