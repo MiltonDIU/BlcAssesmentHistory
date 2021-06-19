@@ -134,6 +134,7 @@ class AssessmentController extends Controller
         $departments =$this->getApiData($url);
         $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/program-list";
         $programs =$this->getApiData($url);
+
         return view('admin.assessments.create', compact('programs','faculties', 'exam_types','semesters','departments'));
     }
 
