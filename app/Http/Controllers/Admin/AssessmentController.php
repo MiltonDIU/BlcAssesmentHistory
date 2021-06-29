@@ -230,7 +230,7 @@ $assessment = Assessment::find(decrypt($id));
         $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/department-list";
         $departments =$this->getApiData($url);
 
-        return view('admin.assessments.show', compact('assessment','assessments','departments','semesters','examTypes'));
+        return view('admin.assessments.show', compact('assessment','assessments','departments',''));
     }
 
     public function destroy(Assessment $assessment)

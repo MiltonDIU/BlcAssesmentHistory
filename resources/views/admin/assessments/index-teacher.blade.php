@@ -57,8 +57,8 @@
                     @foreach($assessments as $key => $assessment1)
 
                         @foreach($assessment1 as $key => $assessment)
-                           @if($key==0)
-{{--                            @if((\App\Models\Assessment::checkExamDone($assessment->teacherid,$assessment->program,$assessment->department,$assessment->semester,$assessment->course_code)!=true))--}}
+                            @if($key==0)
+                                {{--                            @if((\App\Models\Assessment::checkExamDone($assessment->teacherid,$assessment->program,$assessment->department,$assessment->semester,$assessment->course_code)!=true))--}}
                                 <tr data-entry-id="{{ $assessment->id }}">
                                     <td>
 
@@ -155,9 +155,9 @@
                                     </td>
 
                                 </tr>
-{{--                            @endif--}}
+                                {{--                            @endif--}}
 
-@endif
+                            @endif
 
                         @endforeach
 
