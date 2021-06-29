@@ -47,6 +47,7 @@
                         <th>
                             {{ trans('cruds.assessment.fields.assessment_link') }}
                         </th>
+
                         <th>
                             &nbsp;
                         </th>
@@ -54,12 +55,14 @@
                     </thead>
                     <tbody>
 
-                    @foreach($assessments as $key => $assessment1)
+                    @foreach($assessments as $key0 => $assessment1)
+                        @php
+                            $sections = array();
+                        @endphp
 
                         @foreach($assessment1 as $key => $assessment)
-                            @if($key==0)
-                                {{--                            @if((\App\Models\Assessment::checkExamDone($assessment->teacherid,$assessment->program,$assessment->department,$assessment->semester,$assessment->course_code)!=true))--}}
-                                <tr data-entry-id="{{ $assessment->id }}">
+                               @if(($key==0 ) or (!in_array($assessment->section_and_section_ids, $sections)))
+                               <tr data-entry-id="{{ $assessment->id }}">
                                     <td>
 
                                     </td>
@@ -70,7 +73,7 @@
                                         @php
                                             $erp_course = explode("_", $assessment->erp_course);
                                         @endphp
-                                        {{ $erp_course[1] ?? '' }}
+                                        {{ $erp_course[1] ?? '' }}<br> Section:  {{ $erp_course[3] ?? '' }}
                                     </td>
                                     <td>
                                         @foreach($departments  as $department)
@@ -110,11 +113,8 @@
 
 
                                         @foreach($examTypes as $exam)
-                                            {{--        {{$assessment->teacherid.'==='.$assessment->program.'==='.$assessment->department.'==='.$assessment->semester.'==='.$assessment->course_code}}--}}
-                                            {{--{{$exam->id}}==--}}
-                                            {{--        {{\App\Models\Assessment::checkExamType2($assessment->teacherid,$assessment->program,$assessment->department,$assessment->semester,$exam->id)}}--}}
-                                            {{--                                <br>--}}
-                                            @if((\App\Models\Assessment::checkExamType2($assessment->teacherid,$assessment->program,$assessment->department,$assessment->semester,$assessment->course_code,$exam->id)!=true))
+
+                                            @if((\App\Models\Assessment::checkExamType2($assessment->teacherid,$assessment->program,$assessment->department,$assessment->semester,$assessment->course_code,$assessment->section_and_section_ids,$exam->id)!=true))
                                                 <a href="{{route('admin.assessments.editFinal',[encrypt($assessment->id)])}}" class="btn btn-xs btn-info">
                                                     {{$exam->title}}
                                                 </a>
@@ -155,11 +155,12 @@
                                     </td>
 
                                 </tr>
-                                {{--                            @endif--}}
+{!!  array_push($sections,$assessment->section_and_section_ids) !!}
 
-                            @endif
+@endif
 
                         @endforeach
+
 
                     @endforeach
                     </tbody>

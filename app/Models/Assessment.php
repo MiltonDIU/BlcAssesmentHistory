@@ -99,7 +99,14 @@ class Assessment extends Model
 
     public static function checkExamType2($teacherid,$program,$department,$semester,$course_code,$section_and_section_ids,$exam_type_id){
 //      dd($teacherid.'=='.$program.'=='.$department.'=='.$semester.'=='.$course_code.'=='.$exam_type_id);
-        $assessment = Assessment::where('course_code',$course_code)->where('exam_type_id',$exam_type_id)->where('teacherid',$teacherid)->where('section_and_section_ids',$section_and_section_ids)->where('semester',$semester)->where('department',$department)->where('program',$program)->get();
+        $assessment = Assessment::where('course_code',$course_code)
+            ->where('exam_type_id',$exam_type_id)
+            ->where('teacherid',$teacherid)
+            ->where('semester',$semester)
+            ->where('department',$department)
+            ->where('program',$program)
+            ->where('section_and_section_ids',$section_and_section_ids)
+            ->get();
         if (count($assessment)>0){
             return true;
         }else{
