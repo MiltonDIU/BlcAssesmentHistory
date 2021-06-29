@@ -165,7 +165,128 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="table-responsive">
+                    <table class=" table table-bordered table-striped table-hover datatable datatable-Assessment">
+                        <thead>
+                        <tr>
+                            <th width="10">
 
+                            </th>
+                            <th>
+                                {{ trans('cruds.assessment.fields.exam_type') }}
+                            </th>
+
+                            <th>
+                                ERP Course Name
+                            </th>
+                            <th>
+                                {{ trans('cruds.assessment.fields.department') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.assessment.fields.semester') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.assessment.fields.course_name') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.assessment.fields.blc_course_link') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.assessment.fields.assessment_question_link') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.assessment.fields.assessment_link') }}
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach($assessments as $key => $assessment)
+
+                                    {{--                            @if((\App\Models\Assessment::checkExamDone($assessment->teacherid,$assessment->program,$assessment->department,$assessment->semester,$assessment->course_code)!=true))--}}
+                                    <tr data-entry-id="{{ $assessment->id }}">
+                                        <td>
+
+                                        </td>
+                                        <td>
+                                            {{ $assessment->exam_type->title ?? '' }}
+                                        </td>
+                                        <td>
+                                            @php
+                                                $erp_course = explode("_", $assessment->erp_course);
+                                            @endphp
+                                            {{ $erp_course[1] ?? '' }}
+                                        </td>
+                                        <td>
+                                            @foreach($departments  as $department)
+                                                @if($department['id']==$assessment->department)
+                                                    {{$department['departmentName']}}
+                                                @endif
+                                            @endforeach
+                                        </td>
+
+                                        <td>
+                                            @foreach($semesters  as $semester)
+                                                @if($semester['id']==$assessment->semester)
+                                                    {{$semester['semesterName']}}-{{$semester['semesterYear']}}
+                                                @endif
+                                            @endforeach
+
+                                        </td>
+                                        <td>
+                                            {{ $assessment->course_code ?? '' }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ $assessment->blc_course_link ?? '' }}" target="_blank">
+                                                {{ Illuminate\Support\Str::limit($assessment->blc_course_link, 15) }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ $assessment->assessment_question_link ?? '' }}" target="_blank">
+                                                {{ Illuminate\Support\Str::limit($assessment->assessment_question_link, 15) }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ $assessment->assessment_link ?? '' }}" target="_blank">
+                                                {{ Illuminate\Support\Str::limit($assessment->assessment_link, 15) }}
+                                            </a>
+                                        </td>
+                                        <td>
+
+
+                                            @can('assessment_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.assessments.show', encrypt($assessment->id)) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
+
+                                            @can('assessment_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.assessments.edit', $assessment->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
+
+                                            @can('assessment_delete')
+                                                <form action="{{ route('admin.assessments.destroy', $assessment->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
+
+                                        </td>
+
+                                    </tr>
+                                    {{--                            @endif--}}
+
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 <div class="form-group">
                     <a class="btn btn-default" href="{{ route('admin.assessments.index') }}">
                         {{ trans('global.back_to_list') }}
@@ -173,6 +294,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
 
 

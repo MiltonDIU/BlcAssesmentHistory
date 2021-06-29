@@ -78,13 +78,7 @@
 
 
                 <div class="container-fluid">
-                    @if(session('message'))
-                        <div class="row mb-2">
-                            <div class="col-lg-12">
-                                <div class="alert alert-success" role="alert">{{ session('message') }}</div>
-                            </div>
-                        </div>
-                    @endif
+
                         @if(session()->has('message'))
 
                             <div class="alert alert-success alert-dismissible fade show" role="alert">

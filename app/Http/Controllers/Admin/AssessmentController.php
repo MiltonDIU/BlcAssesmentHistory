@@ -106,8 +106,8 @@ class AssessmentController extends Controller
             return view('admin.assessments.index', compact('faculties', 'exam_types', 'users'));
 
         } else {
-            $assessments = Assessment::with(['faculty', 'exam_type', 'user'])->where('user_id',Auth::id())->orderBy('semester','desc')->get()->groupBy('semester');
 
+            $assessments = Assessment::with(['faculty', 'exam_type', 'user'])->where('user_id',Auth::id())->orderBy('semester','desc')->get()->groupBy('course_code');
             $examTypes = ExamType::where('is_active',1)->get();
             $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
             $semesters =$this->getApiData($url);
@@ -155,7 +155,7 @@ class AssessmentController extends Controller
     public function finalSubmit(StoreAssessmentRequest $request)
     {
         $data = $request->all();
-        dd($data);
+//        dd($data);
         $data['user_id']=Auth::id();
         $data['teacherid']=Auth::user()->diu_id;
         $assessment = Assessment::create($data);
@@ -221,8 +221,16 @@ $assessment = Assessment::find(decrypt($id));
     {
         abort_if(Gate::denies('assessment_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $assessment = Assessment::find(decrypt($id));
+        $assessments = Assessment::where('course_code',$assessment->course_code)->get();
         $assessment->load('exam_type', 'user');
-        return view('admin.assessments.show', compact('assessment'));
+
+        $examTypes = ExamType::where('is_active',1)->get();
+        $url ='http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list';
+        $semesters =$this->getApiData($url);
+        $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/department-list";
+        $departments =$this->getApiData($url);
+
+        return view('admin.assessments.show', compact('assessment','assessments','departments','semesters','examTypes'));
     }
 
     public function destroy(Assessment $assessment)
