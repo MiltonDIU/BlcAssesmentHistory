@@ -18,6 +18,7 @@
                 <input type="hidden" name="course_name" value="{{$assessment->course_name}}">
                 <input type="hidden" name="section_and_section_ids" value="{{$assessment->section_and_section_ids}}">
                 <input type="hidden" name="blc_course_link" value="{{$assessment->blc_course_link}}">
+                <input type="hidden" name="exam_type_id" value="{{$eid}}">
 
 {{--                <div class="form-group">--}}
 {{--                    <label for="faculty_id">{{ trans('cruds.assessment.fields.faculty') }}</label>--}}
@@ -137,12 +138,14 @@
                 </div>
                 <div class="form-group">
                     <label class="required" for="exam_type_id">{{ trans('cruds.assessment.fields.exam_type') }}</label>
-                    <select class="form-control select2 {{ $errors->has('exam_type') ? 'is-invalid' : '' }}" name="exam_type_id" id="exam_type_id" required>
-                        @foreach($exam_types as $id => $entry)
+                    <select disabled class="form-control select2 {{ $errors->has('exam_type') ? 'is-invalid' : '' }}" name="exam_type_id" id="exam_type_id" required>
+                        @foreach($exam_types as $key => $value)
+
 {{--                            <option value="{{ $id }}" {{ (old('exam_type_id') ? old('exam_type_id') : $assessment->exam_type->id ?? '') != $id ? 'selected' : '' }}>{{ $entry }}</option>--}}
-                            <option value="{{ $id }}" {{ (old('exam_type_id') ? old('exam_type_id') : $assessment->exam_type->id ?? '') != $id ? 'selected' : '' }}>{{ $entry }}</option>
+                            <option value="{{ $key }}"  {{ $key==$eid? 'selected' : '' }}> {{ $value }}</option>
 
                         @endforeach
+
                     </select>
                     @if($errors->has('exam_type'))
                         <div class="invalid-feedback">

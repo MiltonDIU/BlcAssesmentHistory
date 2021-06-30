@@ -76,7 +76,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
     // Assessment
     Route::delete('assessments/destroy', [AssessmentController::class,'massDestroy'])->name('assessments.massDestroy');
-    Route::get('assessments/{id}/edit-final', [AssessmentController::class,'edit2'])->name('assessments.editFinal');
+    Route::get('assessments/{id}/edit-final/{exam}', [AssessmentController::class,'edit2'])->name('assessments.editFinal');
     Route::post('assessments/{id}/edit-final', [AssessmentController::class,'finalSubmit'])->name('assessments.finalSubmit');
 
     // Exam Type

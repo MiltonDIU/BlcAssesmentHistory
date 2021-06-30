@@ -191,7 +191,7 @@ $assessment = Assessment::find(decrypt($id));
         return view('admin.assessments.edit', compact('semesters','departments','programs','faculties', 'exam_types', 'assessment'));
     }
 
-    public function edit2($id)
+    public function edit2($id,$eid)
     {
         $assessment = Assessment::find(decrypt($id));
         abort_if(Gate::denies('assessment_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -207,7 +207,7 @@ $assessment = Assessment::find(decrypt($id));
         $erp_course_name = $erp_course[1];
         $semesters =$this->getApiData($url);
         $assessment->load('exam_type', 'user');
-        return view('admin.assessments.create-2nd', compact('erp_course_name','semesters', 'exam_types', 'assessment'));
+        return view('admin.assessments.create-2nd', compact('erp_course_name','semesters', 'exam_types', 'assessment','eid'));
     }
 
     public function update(UpdateAssessmentRequest $request, Assessment $assessment)

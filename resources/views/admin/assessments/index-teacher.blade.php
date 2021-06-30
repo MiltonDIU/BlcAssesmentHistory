@@ -115,23 +115,13 @@
                                         @foreach($examTypes as $exam)
 
                                             @if((\App\Models\Assessment::checkExamType2($assessment->teacherid,$assessment->program,$assessment->department,$assessment->semester,$assessment->course_code,$assessment->section_and_section_ids,$exam->id)!=true))
-                                                <a href="{{route('admin.assessments.editFinal',[encrypt($assessment->id)])}}" class="btn btn-xs btn-info">
+                                                <a href="{{route('admin.assessments.editFinal',[encrypt($assessment->id),$exam->id])}}" class="btn btn-xs btn-info" >
                                                     {{$exam->title}}
                                                 </a>
                                             @else
                                                 {{$exam->title}} : Done,
                                             @endif
                                         @endforeach
-
-
-
-
-
-
-
-
-
-
                                         @can('assessment_show')
                                             <a class="btn btn-xs btn-primary" href="{{ route('admin.assessments.show', encrypt($assessment->id)) }}">
                                                 {{ trans('global.view') }}
@@ -155,7 +145,12 @@
                                     </td>
 
                                 </tr>
-{!!  array_push($sections,$assessment->section_and_section_ids) !!}
+
+
+                                   @php
+
+array_push($sections,$assessment->section_and_section_ids)
+                                   @endphp
 
 @endif
 
@@ -175,6 +170,11 @@
 @section('scripts')
     @parent
     <script>
+        // $('.newItem').click(function () {
+        //     alert($(this).attr('setid'));
+        // });
+
+
         $(function () {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
                 @can('assessment_delete')
