@@ -14,6 +14,7 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Console\Input\Input;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -140,6 +141,7 @@ class AssessmentController extends Controller
 
     public function store(StoreAssessmentRequest $request)
     {
+
         $data = $request->all();
         $data['user_id']=Auth::id();
         $data['teacherid']=Auth::user()->diu_id;
@@ -149,8 +151,15 @@ class AssessmentController extends Controller
         $data['department'] = $erp_course[4];
         $data['program'] = $erp_course[6];
         $data['faculty_id'] = $erp_course[8];
-        $assessment = Assessment::create($data);
-        return redirect()->route('admin.assessments.index')->with('message','Your assessment successfully stored in system');
+
+
+        $assessment = Assessment::firstOrNew(array('id' =>Auth::id() ,'exam_type_id' => $request->only('exam_type_id'),'semester' => $request->only('semester'),'course_code' => $request->only('course_code'),'section_and_section_ids' => $request->only('section_and_section_ids')));
+        if ($assessment->exists) {
+            return redirect()->route('admin.assessments.index')->with('message','Your assessment already stored in system');
+        } else {
+           Assessment::create($data);
+            return redirect()->route('admin.assessments.index')->with('message','Your assessment successfully stored in system');
+        }
     }
     public function finalSubmit(StoreAssessmentRequest $request)
     {

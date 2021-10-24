@@ -17,40 +17,14 @@ class StoreAssessmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'exam_type_id' => [
-                'required',
-                'integer',
-            ],
-            'semester' => [
-                'required',
-            ],
-            'course_code' => [
-                'string',
-                'required',
-            ],
-            'course_name' => [
-                'string',
-                'required',
-            ],
-            'section_and_section_ids' => [
-                'string',
-                'required',
-            ],
-            'blc_course_link' => [
-                'string',
-                'required',
-                'url'
-            ],
-            'assessment_question_link' => [
-                'string',
-                'required',
-                'url'
-            ],
-            'assessment_link' => [
-                'string',
-                'required',
-                'url'
-            ],
+            'exam_type_id' => ['required','integer',],
+            'semester' => ['required',],
+            'course_code' => ['string','required',],
+            'course_name' => ['string','required',],
+            'section_and_section_ids' => ['string','required',],
+            'blc_course_link' => ['string','required','url'],
+            'assessment_question_link' => ['string', 'required','url'],
+            'assessment_link' => ['string','required','url'],
         ];
     }
 }
