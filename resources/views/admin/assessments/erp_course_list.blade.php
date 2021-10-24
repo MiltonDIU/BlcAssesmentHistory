@@ -1,7 +1,7 @@
 
 @if($courses)
     @foreach($courses as $key => $course)
-        <option value="{{ $course['courseCode'] ?? '' }}_{{ $course['courseTitle'] ?? '' }}_{{ $course['courseSectionId'] ?? '' }}_{{ $course['sectionName'] ?? '' }}_{{ $course['departmentId'] ?? '' }}_{{ $course['departmentName'] ?? '' }}_{{ $course['programId'] ?? '' }}_{{ $course['programName'] ?? '' }}_{{ $course['facultyId'] ?? '' }}_{{ $course['facultyName'] ?? '' }}_{{ $course['courseTypeId'] ?? '' }}_{{ $course['numberOfStudent'] ?? '' }}_{{ $course['totalCredit'] ?? '' }}">
+        <option value="{{ $course['courseCode'] ?? '' }}__mr9__{{ $course['courseTitle'] ?? '' }}__mr9__{{ $course['courseSectionId'] ?? '' }}__mr9__{{ $course['sectionName'] ?? '' }}__mr9__{{ $course['departmentId'] ?? '' }}__mr9__{{ $course['departmentName'] ?? '' }}__mr9__{{ $course['programId'] ?? '' }}__mr9__{{ $course['programName'] ?? '' }}__mr9__{{ $course['facultyId'] ?? '' }}__mr9__{{ $course['facultyName'] ?? '' }}__mr9__{{ $course['courseTypeId'] ?? '' }}__mr9__{{ $course['numberOfStudent'] ?? '' }}__mr9__{{ $course['totalCredit'] ?? '' }}">
         ({{ $course['courseSectionId'] ?? '' }})
         {{ $course['courseCode'] ?? '' }}: {{ $course['courseTitle'] ?? '' }}, Section: {{ $course['sectionName'] ?? '' }}, Department of {{ $course['departmentName'] ?? '' }}
     </option>

@@ -223,7 +223,7 @@
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'teacherid', name: 'teacherid' },
-                    { data: 'semester', name: 'semester' },
+                    { data: 'semester_name', name: 'semester_name' },
                     { data: 'faculty_id', name: 'faculty_id' },
                     { data: 'exam_type_title', name: 'exam_type.title'},
                     { data: 'department', name: 'department'},

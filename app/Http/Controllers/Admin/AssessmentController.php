@@ -49,9 +49,15 @@ class AssessmentController extends Controller
                 $table->editColumn('teacherid', function ($row) {
                     return $row->teacherid ? $row->teacherid : '';
                 });
-//                $table->addColumn('faculty_title', function ($row) {
-//                    return $row->faculty ? $row->faculty->title : '';
-//                });
+                $table->addColumn('semester_name', function ($row) {
+                    $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/semester-list";
+                    $semesters = $this->getApiData($url);
+                    foreach ($semesters as $key=> $semester){
+                      if ($semester['id']==$row->semester){
+                          return $semester['semesterName'].'-'.$semester['semesterYear'];
+                      }
+                    }
+                });
 
                 $table->addColumn('exam_type_title', function ($row) {
                     return $row->exam_type ? $row->exam_type->title : '';
@@ -146,14 +152,11 @@ class AssessmentController extends Controller
         $data['user_id']=Auth::id();
         $data['teacherid']=Auth::user()->diu_id;
         $erp_course = $request->input('erp_course');
-        $erp_course =  explode("_", $erp_course);
-
+        $erp_course =  explode("__mr9__", $erp_course);
         $data['department'] = $erp_course[4];
         $data['program'] = $erp_course[6];
         $data['faculty_id'] = $erp_course[8];
-
-
-        $assessment = Assessment::firstOrNew(array('id' =>Auth::id() ,'exam_type_id' => $request->only('exam_type_id'),'semester' => $request->only('semester'),'course_code' => $request->only('course_code'),'section_and_section_ids' => $request->only('section_and_section_ids')));
+        $assessment = Assessment::firstOrNew(array('user_id' =>Auth::id() ,'exam_type_id' => $request->only('exam_type_id'),'semester' => $request->only('semester'),'course_code' => $request->only('course_code'),'section_and_section_ids' => $request->only('section_and_section_ids')));
         if ($assessment->exists) {
             return redirect()->route('admin.assessments.index')->with('message','Your assessment already stored in system');
         } else {
