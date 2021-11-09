@@ -223,11 +223,11 @@
                 columns: [
                     { data: 'placeholder', name: 'placeholder' },
                     { data: 'teacherid', name: 'teacherid' },
-                    { data: 'semester_name', name: 'semester_name' },
-                    { data: 'faculty_id', name: 'faculty_id' },
+                    { data: 'semester_name', name: 'semester' },
+                    { data: 'faculty_name', name: 'faculty_id' },
                     { data: 'exam_type_title', name: 'exam_type.title'},
-                    { data: 'department', name: 'department'},
-                    { data: 'program', name: 'program'},
+                    { data: 'department_name', name: 'department'},
+                    { data: 'program_name', name: 'program'},
 
                     // { data: 'user_name', name: 'user.name' },
                     // { data: 'user.email', name: 'user.email' },

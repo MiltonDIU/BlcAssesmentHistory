@@ -20,6 +20,91 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AssessmentController extends Controller
 {
+
+    public function underScore(){
+        $assess = Assessment::get();
+        $assessments = array();
+        $jamelaEntry = array();
+        $i=$j=0;
+        foreach($assess as $asse){
+            if ($j<10){
+                if (!is_numeric($asse->program) and !is_numeric($asse->faculty_id)){
+                    array_push($assessments,$asse);
+                    $j++;
+                }else{
+                    $i++;
+                }
+            }
+        }
+        echo $j."<br>";
+        echo $i;
+
+
+        echo "<table border='1'>";
+//        echo "<td>ass id</td>
+//<td>course code</td>
+//<td>section id</td>
+//<td>section name</td>
+//<td>department id</td>
+//<td>program id</td>
+//<td>no std</td>
+//<td>erp course</td>
+//";
+        foreach ($assessments as $assessment){
+            $erp_course =  explode("_", $assessment->erp_course);
+            $erp_course_code = $erp_course[0];
+            $courseSectionId = $erp_course[2];
+            $sectionName = $erp_course[3];
+            $departmentId = $erp_course[4];
+            $programId = $erp_course[6];
+            $numberOfStudent = $erp_course[8];
+
+//
+//        echo "<tr>";
+//        echo "<td>$assessment->id</td>";
+//        echo "<td>$erp_course_code</td>";
+//        echo "<td>$courseSectionId</td>";
+//        echo "<td>$sectionName</td>";
+//        echo "<td>$departmentId</td>";
+//        echo "<td>$programId</td>";
+//        echo "<td>$numberOfStudent</td>";
+//        echo "<td>$assessment->erp_course</td>";
+//        echo "</tr>";
+
+            $url= 'http://apps.diu.edu.bd:8686/externals/rest/smis/v3/teacher/course-list/semester/'.$assessment->semester.'/teacher/'.$assessment->teacherid;
+            $courses  = $this->getApiData($url);
+            echo "<table border='1'>";
+            echo "<td>T Id</td>
+<td>course title</td>
+<td>courseSectionId</td>
+<td>sectionName</td>
+<td>departmentName</td>
+<td>programName</td>
+<td>course code</td>
+";
+            foreach ($courses as $course){
+                if (($course['teacherId']==$assessment->teacherid) and ($course['courseCode']==$erp_course_code) and ($course['courseSectionId']==$courseSectionId)){
+                    //array_push($jamelaEntry,$course);
+                    echo "<tr>";
+                   echo "<td>".$course['teacherId']."</td>";
+                   echo "<td>".$course['courseTitle']."</td>";
+                   echo "<td>".$course['courseSectionId']."</td>";
+                   echo "<td>".$course['sectionName']."</td>";
+                   echo "<td>".$course['departmentName']."</td>";
+                   echo "<td>".$course['programName']."</td>";
+                    echo "<td>".$course['courseCode']."</td>";
+                    echo "</tr>";
+                }
+            }
+            echo "==========================================================================$erp_course_code";
+            echo "</table>";
+        }
+        echo "</table>";
+        //dd($assessments);
+    }
+
+
+
     public function index(Request $request)
     {
 //        explode("_", $cat_id);
@@ -58,7 +143,34 @@ class AssessmentController extends Controller
                       }
                     }
                 });
+                $table->addColumn('faculty_name', function ($row) {
+                    $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/faculty-list";
+                    $faculties = $this->getApiData($url);
+                    foreach ($faculties as $key=> $faculty){
+                        if ($faculty['id']==$row->faculty_id){
+                            return $faculty['facultyShortName'];
+                        }
+                    }
+                });
 
+                $table->addColumn('department_name', function ($row) {
+                    $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/department-list";
+                    $departments = $this->getApiData($url);
+                    foreach ($departments as $key=> $department){
+                        if ($department['id']==$row->department){
+                            return $department['departmentName'];
+                        }
+                    }
+                });
+                $table->addColumn('program_name', function ($row) {
+                    $url = "http://apps.diu.edu.bd:8686/externals/rest/smis/v1/program-list";
+                    $programs = $this->getApiData($url);
+                    foreach ($programs as $key=> $program){
+                        if ($program['id']==$row->program){
+                            return $program['programShortName'];
+                        }
+                    }
+                });
                 $table->addColumn('exam_type_title', function ($row) {
                     return $row->exam_type ? $row->exam_type->title : '';
                 });

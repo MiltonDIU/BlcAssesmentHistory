@@ -56,6 +56,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::post('assessments/erp-course-list', [AssessmentController::class,'erpCourseList'])->name('assessments.erp_course_list');
     Route::post('assessments/erp-program-list', [AssessmentController::class,'erpProgramList'])->name('assessments.erp_program_list');
 
+//underscore data problem solve url
+    Route::get('underscore', [AssessmentController::class, 'underScore'])->name('underScore');
+
 
     Route::resources([
         'permissions' => PermissionsController::class,
